@@ -9,17 +9,18 @@ import View from "./pages/View";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <ToastContainer position="top-center" />
-        <Routes> 
-        <Route exact path="/" element={<Home/>} />
-        <Route path="/addPassenger" element={<AddEdit/>} />
-          <Route path="/update/:id" element={<AddEdit/>} />
-          <Route path="/view/:id" element={<View/>} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <div className="App">Hello</div>
+    // <BrowserRouter>
+    //   <div className="App">
+    //     <ToastContainer position="top-center" />
+    //     <Routes> 
+    //     <Route exact path="/" element={<Home/>} />
+    //     <Route path="/addPassenger" element={<AddEdit/>} />
+    //       <Route path="/update/:id" element={<AddEdit/>} />
+    //       <Route path="/view/:id" element={<View/>} />
+    //     </Routes>
+    //   </div>
+    // </BrowserRouter>
   );
 }
 
