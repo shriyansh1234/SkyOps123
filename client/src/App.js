@@ -5,11 +5,14 @@ import './App.css';
 import AddEdit from "./pages/AddEdit";
 import Home from "./pages/Home";
 import View from "./pages/View";
+import Home from "./components/Home"
 
 
 function App() {
   return (
-    <div className="App">Hello</div>
+    <div className="App">
+      <Home/>
+    </div>
     // <BrowserRouter>
     //   <div className="App">
     //     <ToastContainer position="top-center" />
