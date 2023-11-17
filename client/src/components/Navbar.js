@@ -15,6 +15,10 @@ import InfoIcon from "@mui/icons-material/Info"
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded"
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded"
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded"
+import FlightIcon from '@mui/icons-material/Flight';
+import PersonIcon from '@mui/icons-material/Person';
+import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
+import MapIcon from '@mui/icons-material/Map';
 
 const Navbar = () => {
 
@@ -25,20 +29,20 @@ const Navbar = () => {
           icon: <HomeIcon />,
         },
         {
-          text: "About",
-          icon: <InfoIcon />,
+          text: "Bookings",
+          icon: <AirplaneTicketIcon />,
         },
         {
-          text: "Testimonials",
-          icon: <CommentRoundedIcon />,
+          text: "Airplanes",
+          icon: <FlightIcon />,
         },
         {
-          text: "Contact",
-          icon: <PhoneRoundedIcon />,
+          text: "Passengers",
+          icon: <PersonIcon />,
         },
         {
-          text: "Cart",
-          icon: <ShoppingCartRoundedIcon />,
+          text: "Destinations",
+          icon: <MapIcon />,
         },
       ]
       return (
