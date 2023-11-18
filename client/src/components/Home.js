@@ -10,15 +10,15 @@ const Home = () => {
         <Navbar/>
         <div className="home-banner-container">
           <div className='home-bannerImage-container'>
-            {/* <img src={BannerBackground} alt="" /> */}
+            <img src={BannerBackground} alt="" />
           </div>
 
           <div className='home-text-section'>
             <h1 className='primary-heading'>
-              Your Favorite...
+              Make Traveling Easier!
             </h1>
             <p className='primary-text'>
-              Some info...
+            Welcome to the future of aviation data management! Our team has crafted a cutting-edge solution to revolutionize the way we interact with aviation information.
             </p>
             <button className='secondary-button' >
               Book Now <FiArrowRight />
