@@ -51,12 +51,14 @@ const Navbar = () => {
             <img src={Logo} alt="" />
           </div>
           <div className="navbar-links-container">
-            <a href="">Home</a>
+            <a href="/">Home</a>
             <a href="">Bookings</a>
-            <a href="">Airplanes</a>
-            <a href="">Passengers</a>
+            <a href="/airplane">Airplanes</a>
+            <a href="/passenger">Passengers</a>
             <a href="">Destinations</a>
-            <button className="primary-button">Bookings Now</button>
+            <a href="/addPassenger">
+              <button className="primary-button">Bookings Now</button>
+            </a>
           </div>
           <div className="navbar-menu-container">
             <HiOutlineBars3 onClick={() => setOpenMenu(true)} />

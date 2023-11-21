@@ -4,7 +4,7 @@ import "./Airline.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const Home = () => {
+const Airline = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
@@ -55,7 +55,7 @@ const [data, setData] = useState([]);
                   </Link>
                   <button
                     className="btn btn-delete"
-                    onClick={() => deleteContact(item.AirlineId)}
+                    onClick={() => deleteAirline(item.AirlineId)}
                   >
                     Delete
                   </button>

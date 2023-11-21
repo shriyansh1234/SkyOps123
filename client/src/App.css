@@ -85,14 +85,16 @@ nav {
 }
 .primary-heading {
   font-size: clamp(2rem, 5vw, 4rem);
-  color: #4c4c4c;
+  color:#f6f6f6;
+  /* color: #4c4c4c; */
   /* line-height: 5rem; */
   max-width: 600px;
 }
 .primary-text {
   font-size: clamp(1rem, 3vw, 1.5rem);
   max-width: 500px;
-  color: #6a6a6a;
+  color:#f6f6f6;
+  /* color: #6a6a6a; */
   margin: 1.5rem 0rem;
 }
 .secondary-button {
@@ -113,6 +115,9 @@ nav {
 .secondary-button svg {
   margin-left: 0.75rem;
   font-size: 1.5rem;
+}
+a {
+  text-decoration: none;
 }
 .secondary-button:hover {
   background-color: #e48f0f;
