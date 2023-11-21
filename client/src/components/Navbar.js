@@ -52,7 +52,7 @@ const Navbar = () => {
           </div>
           <div className="navbar-links-container">
             <a href="/">Home</a>
-            <a href="">Bookings</a>
+            <a href="/ticket">My Bookings</a>
             <a href="/airplane">Airplanes</a>
             <a href="/passenger">Passengers</a>
             <a href="">Destinations</a>
