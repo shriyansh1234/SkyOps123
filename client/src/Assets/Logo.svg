@@ -2,5 +2,5 @@
   <!-- Your other paths or elements here -->
 
   <!-- Text element for "SKYOPS" -->
-  <text x="10" y="25" font-family="Arial" font-size="20" fill="#FE9E0D">SKYOPS</text>
+  <text x="0" y="35" font-family="sans serif" font-size="40"  fill="#FE9E0D">SKYOPS</text>
 </svg>

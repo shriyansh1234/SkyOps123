@@ -8,7 +8,7 @@ const Airport = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:5000/api/get");
+    const response = await axios.get("http://localhost:5000/api/get2");
     setData(response.data);
   };
 
@@ -19,7 +19,7 @@ const [data, setData] = useState([]);
     if (
       window.confirm("Are you sure that you wanted to delete that airport ?")
     ) {
-      axios.delete(`http://localhost:5000/api/remove/${id}`);
+      axios.delete(`http://localhost:5000/api/remove2/${id}`);
       toast.success("Airport Record Deleted Successfully");
       setTimeout(() => loadData(), 500);
     }
@@ -54,7 +54,7 @@ const [data, setData] = useState([]);
                 <td>{item.citycode}</td>
                 <td>{item.stateorcountry}</td>
                 <td>
-                  <Link to={`/update/${item.AirportID}`}>
+                  <Link to={`/update2/${item.AirportID}`}>
                     <button className="btn btn-edit">Edit</button>
                   </Link>
                   <button
@@ -63,7 +63,7 @@ const [data, setData] = useState([]);
                   >
                     Delete
                   </button>
-                  <Link to={`/view/${item.AirportID}`}>
+                  <Link to={`/view2/${item.AirportID}`}>
                     <button className="btn btn-view">View</button>
                   </Link>
                 </td>

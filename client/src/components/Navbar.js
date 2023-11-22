@@ -56,7 +56,7 @@ const Navbar = () => {
             <a href="/airplane">Airplanes</a>
             <a href="/passenger">Passengers</a>
             <a href="">Destinations</a>
-            <a href="/addPassenger">
+            <a href="/BookingPage">
               <button className="primary-button">Bookings Now</button>
             </a>
           </div>
