@@ -8,7 +8,7 @@ const Airport = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:5000/api/get2");
+    const response = await axios.get("http://localhost:3001/api/get2");
     setData(response.data);
   };
 
@@ -19,7 +19,7 @@ const [data, setData] = useState([]);
     if (
       window.confirm("Are you sure that you wanted to delete that airport ?")
     ) {
-      axios.delete(`http://localhost:5000/api/remove2/${id}`);
+      axios.delete(`http://localhost:3001/api/remove2/${id}`);
       toast.success("Airport Record Deleted Successfully");
       setTimeout(() => loadData(), 500);
     }
