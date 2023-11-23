@@ -6,13 +6,13 @@ body {
   color: #ecf0f1;
 }
 
-.container {
+.container2 {
   background-color: #1e272e;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   margin: 50px auto;
   padding: 20px;
-  max-width: 800px;
+  max-width: 100%;
 }
 
 .heading {
@@ -42,7 +42,7 @@ body {
 .styled-table thead tr {
   background-color: #161c22;
   color: #ecf0f1;
-  text-align: left;
+  text-align: center;
 }
 
 .styled-table th,

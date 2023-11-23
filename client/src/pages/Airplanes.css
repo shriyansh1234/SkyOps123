@@ -1,4 +1,7 @@
 /* Airplanes.css */
+* {
+  box-sizing: border-box;
+}
 
 body {
   background-color: rgba(15, 26, 43, 0.801);
@@ -6,13 +9,13 @@ body {
   color: #ecf0f1;
 }
 
-.container {
+.container1{
   background-color: #1e272e;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   margin: 50px auto;
   padding: 20px;
-  max-width: 800px;
+  max-width: 100%;
 }
 
 .heading {
@@ -31,7 +34,7 @@ body {
   cursor: pointer;
 }
 
-.styled-table {
+.styled-table{
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;

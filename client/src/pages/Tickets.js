@@ -8,7 +8,7 @@ const Tickets = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:5000/api/get");
+    const response = await axios.get("http://localhost:5000/api/get3");
     setData(response.data);
   };
 
@@ -19,13 +19,13 @@ const [data, setData] = useState([]);
     if (
       window.confirm("Are you sure that you wanted to delete that ticket ?")
     ) {
-      axios.delete(`http://localhost:5000/api/remove/${id}`);
+      axios.delete(`http://localhost:5000/api/remove3/${id}`);
       toast.success("Ticket Record Deleted Successfully");
       setTimeout(() => loadData(), 500);
     }
   };
   return (
-    <div className="container">
+    <div className="container4">
         <h2 className="heading">Ticket Details Page</h2>
       <Link to="/addPassenger">
         <button className="btn btn-contact">Add Ticket</button>
@@ -37,14 +37,13 @@ const [data, setData] = useState([]);
             <th style={{ textAlign: "center" }}>No.</th>
             <th style={{ textAlign: "center" }}>Cost</th>
             <th style={{ textAlign: "center" }}>Ticket ID</th>
-            <th style={{ textAlign: "center" }}>Source</th>
-            <th style={{ textAlign: "center" }}>Destination</th>
             <th style={{ textAlign: "center" }}>Seat Number</th>
 			<th style={{ textAlign: "center" }}>Departure Date</th>
 			<th style={{ textAlign: "center" }}>Class</th>
             <th style={{ textAlign: "center" }}>Cancels</th>
 			<th style={{ textAlign: "center" }}>Booking Date</th>
 			<th style={{ textAlign: "center" }}>Cancellation Fee</th>
+      <th style={{ textAlign: "center" }}>PassengerID</th>
 			<th style={{ textAlign: "center" }}>Action</th>
           </tr>
         </thead>
@@ -55,15 +54,15 @@ const [data, setData] = useState([]);
                 <th scope="row">{index + 1}</th>
                 <td>{item.Cost}</td>
                 <td>{item.TicketID}</td>
-                <td>{item.Source}</td>
-                <td>{item.SeatNumber}</td>
-                <td>{item.DepartureDate}</td>
+                <td>{item['Seat Number']}</td>
+                <td>{item['Departure_Date']}</td>
 				<td>{item.Class}</td>
 				<td>{item.Cancels}</td>
 				<td>{item.BookingDate}</td>
-				<td>{item.CancellationFee}</td>
+				<td>{item['Cancellation Fee']}</td>
+        <td>{item.PassengerID}</td>
                 <td>
-                  <Link to={`/update/${item.TicketID}`}>
+                  <Link to={`/update3/${item.TicketID}`}>
                     <button className="btn btn-edit">Edit</button>
                   </Link>
                   <button
@@ -72,7 +71,7 @@ const [data, setData] = useState([]);
                   >
                     Delete
                   </button>
-                  <Link to={`/view/${item.TicketID}`}>
+                  <Link to={`/view3/${item.TicketID}`}>
                     <button className="btn btn-view">View</button>
                   </Link>
                 </td>
