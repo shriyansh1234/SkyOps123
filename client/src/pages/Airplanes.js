@@ -26,10 +26,7 @@ const [data, setData] = useState([]);
   };
   return (
     <div className="container1">
-        <h2 className="heading">Airplane Details Page</h2>
-      <Link to="/addPassenger">
-        <button className="btn btn-contact">Add Passenger</button>
-      </Link>
+        <h2 style={{ fontSize: "30px"}}className="heading">Airplane Details Page</h2>
       
       <table className="table styled-table">
         <thead>

@@ -52,11 +52,11 @@ const Navbar = () => {
           </div>
           <div className="navbar-links-container">
             <a href="/">Home</a>
-            <a href="/ticket">My Bookings</a>
+            <a href="/MyBookings">My Bookings</a>
             <a href="/airplane">Airplanes</a>
             <a href="/passenger">Passengers</a>
-            <a href="">Destinations</a>
-            <a href="/BookingPage">
+            <a href="/destinations">Destinations</a>
+            <a href="/BookingPage1">
               <button className="primary-button">Bookings Now</button>
             </a>
           </div>

@@ -26,7 +26,7 @@ const [data, setData] = useState([]);
   };
   return (
     <div className="container2">
-        <h2 className="heading">Passenger Details Page</h2>
+        <h2 style={{ fontSize: "30px"}} className="heading">Passenger Details Page</h2>
       <Link to="/addPassenger">
         <button className="btn btn-contact">Add Passenger</button>
       </Link>
