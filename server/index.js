@@ -7,8 +7,8 @@ const cors = require("cors");
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "Yob1#ab1",
-  database: "airlinedatabase",
+  password: "Alphacow_20",
+  database: "airlinedatabase1",
 });
 
 app.use(cors());
@@ -77,6 +77,6 @@ app.get("/", (req, res) =>
 //   }); 
 });
 
-app.listen(5000, () => {
-    console.log("Server is running on port 5000");
+app.listen(3001, () => {
+    console.log("Server is running on port 3001");
   });
