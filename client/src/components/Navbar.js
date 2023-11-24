@@ -45,6 +45,20 @@ const Navbar = () => {
           icon: <MapIcon />,
         },
       ]
+
+      const DropdownMenu = () => (
+        <div className="dropdown-menu">
+          {menuOptions.map((item) => (
+            <a key={item.text} href={item.link}>
+              <div className="dropdown-item">
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </div>
+            </a>
+          ))}
+        </div>
+      );
+      
       return (
         <nav>
           <div className="nav-logo-container">

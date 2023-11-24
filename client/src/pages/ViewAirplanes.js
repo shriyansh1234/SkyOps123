@@ -10,7 +10,7 @@ const ViewAirplanes = () => {
 
   useEffect(() => {
     axios 
-    .get(`http://localhost:5000/api/get1/${id}`)
+    .get(`http://localhost:3001/api/get1/${id}`)
     .then((resp) => {
       console.log("API Response:", resp.data);
       setUser(resp.data[0]);
