@@ -75,7 +75,7 @@ const BookingPage3 = () => {
         </div>
 
         <div style={{ marginBottom: "10px", display: "flex", flexDirection: "row", alignItems: "center" }}>
-          <label htmlFor="lastName" style={{ display: "block", width: "120px", marginRight: "10px" }}>Seat Number:</label>
+          <label htmlFor="seatNumber" style={{ display: "block", width: "120px", marginRight: "10px" }}>Seat Number:</label>
           <input
             type="text"
             id="lastName"
