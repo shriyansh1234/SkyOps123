@@ -16,16 +16,21 @@ const MyBookings = () => {
   const handleTicketIdChange = (e) => {
     setTravelInfotId(e.target.value);
   };
-  const handleupdate = () => {
+  const handleupdate1 = () => {
     setupdate(!update);
+  };
+
+  const handleupdate2 = () => {
+    setupdate(true);
+    navigate(`/UpdateBooking/${ticketId}`, { state: { ticketInfo } });
   };
   const handleCancellation = () => {
     setCancellation(!cancellation);
   };
   const handleDelete = () => {
     const passengerId = ticketInfo.PassengerId;
-    const apiUrl = `http://localhost:5000/api/deletebooking/${passengerId}`;
-    
+    const apiUrl = `http://localhost:3001/api/deletebooking/${passengerId}`;
+
     toast.success("Ticket deleted successfully", {
       position: "top-center",
       autoClose: 5000,
@@ -51,7 +56,7 @@ const MyBookings = () => {
   };
 
   const handleRetrieveInfo = () => {
-    const apiUrl = `http://localhost:5000/api/getmyticket/${ticketId}`;
+    const apiUrl = `http://localhost:3001/api/getmyticket/${ticketId}`;
 
     axios.get(apiUrl)
       .then((response) => {
@@ -118,17 +123,17 @@ const MyBookings = () => {
       {ticketInfo && update && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
           <p style={{ marginBottom: "20px", fontSize: "18px" }}>Do you want to update this booking?</p>
-          <Link to="/BookingPage2">
+          <Link to={`/UpdateBooking/${ticketInfo.TicketID}`}>
             <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}>Continue</button>
           </Link>
-          <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleupdate}>Go Back</button>
+          <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleupdate2}>Go Back</button>
         </div>
       )}
 
       {ticketInfo && !cancellation && !update && (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
           <p style={{ marginBottom: "20px", fontSize: "18px" }}>Do you want to delete or update this booking? </p>
-          <button className="btn btn-confirm" style={{ marginTop: "20px",marginRight:"20px", padding: "15px", fontSize: "18px" }} onClick={handleupdate} >
+          <button className="btn btn-confirm" style={{ marginTop: "20px",marginRight:"20px", padding: "15px", fontSize: "18px" }} onClick={handleupdate1} >
           Update Booking
           </button>
           <button className="btn btn-confirm" style={{ marginTop: "20px",marginLeft:"20px", padding: "15px", fontSize: "18px" }} onClick={handleCancellation} >

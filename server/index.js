@@ -285,7 +285,10 @@ app.get("/api/getdestination/:selectedDestination", (req, res) => {
   });
 });
 
-//  **** my booking  retrieval function ****
+
+//  **** my booking functionS ****
+
+
 app.get("/api/getmyticket/:id", (req, res) => {
   const { id } = req.params;
   const sqlGet = "SELECT t.Cost,t.TicketID,t.BookingDate, t.`Cancellation Fee`,t.Class, t.Departure_Date, t.`Seat Number`,p.PassengerId,p.FirstName,p.Lastname,p.PhoneNumber,p.PassengerId,p.Miles_on_Passenger,p.`Tail Number` FROM tickets as t JOIN passengers as p ON t.PassengerID = p.PassengerId WHERE t.TicketID = ? ";
@@ -297,6 +300,7 @@ app.get("/api/getmyticket/:id", (req, res) => {
   });
 });
 
+
 app.delete("/api/deletebooking/:id", (req, res) => {
   const { id } = req.params;
   const sqlRemove = "DELETE FROM passengers where PassengerId = ? ";
@@ -306,6 +310,25 @@ app.delete("/api/deletebooking/:id", (req, res) => {
     }
   });
 });
+
+
+app.put("/api/updatebooking/:id", (req, res) => {
+  const { id } = req.params;
+  const { FirstName, Lastname, PhoneNumber, Miles_on_Passenger, Class, SeatNumber } = req.body;
+  
+  const sqlUpdate = "UPDATE passengers as p JOIN tickets as t ON p.PassengerId = t.PassengerID SET p.FirstName = ?,  p.Lastname = ?, p.PhoneNumber = ?, p.Miles_on_Passenger = ?, t.Class = ?, t.`Seat Number` = ? WHERE t.TicketID = ?";
+  console.log("Received data:", req.body);
+  console.log(req.params);
+  db.query(sqlUpdate, [FirstName, Lastname, PhoneNumber, Miles_on_Passenger, Class, SeatNumber, id], (error, result) => {
+    if (error) {
+      console.log(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.status(200).json({ success: true, message: "Booking updated successfully" });
+    }
+  });
+});
+
 
 app.listen(3001, () => {
     console.log("Server is running on port 3001");

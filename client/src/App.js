@@ -17,7 +17,7 @@ import BookingPage3 from "./pages/BookingPage3";
 import Destinations from "./pages/Destinations";
 import MyBookings from "./pages/MyBookings";
 import Layout from "./components/Layout";
-
+import UpdateBooking from "./pages/UpdateBooking";
 function App() {
   return (
     <BrowserRouter>
@@ -39,6 +39,7 @@ function App() {
           <Route path="/BookingPage3" element={<Layout><BookingPage3/></Layout>} />
           <Route path="/destinations" element={<Layout><Destinations/></Layout>} />
           <Route path="/MyBookings" element={<Layout><MyBookings/></Layout>} />
+          <Route path="/UpdateBooking/:id" element={<Layout><UpdateBooking/></Layout>} />
         </Routes>
       </div>
     </BrowserRouter>

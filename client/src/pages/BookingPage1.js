@@ -7,7 +7,7 @@ import "./BookingPage.css";
 
 const BookingPage1 = () => {
   const navigate = useNavigate();
-  const [destinations, setDestinations] = useState([]);0
+  const [destinations, setDestinations] = useState([]);
   const [selectedDestination, setSelectedDestination] = useState("")
   const [destinationDetails, setDestinationDetails] = useState(null);
   const [confirmation, setConfirmation] = useState(false);
