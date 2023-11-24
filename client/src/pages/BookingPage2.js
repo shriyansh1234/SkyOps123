@@ -1,18 +1,41 @@
-import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
 import "./BookingPage.css"; // Make sure to import your CSS file
 
 const BookingPage2 = () => {
-    
+
   const navigate = useNavigate();
+  const { tailNumber } = useParams();
+  console.log("Tail Number:", tailNumber);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     phone: "",
     miles: "",
+    tailNumber: tailNumber || "",
   });
   const [confirmation, setConfirmation] = useState(false);
+  const [tailNumbers, setTailNumbers] = useState([]); // New state for storing distinct tail numbers
+
+  useEffect(() => {
+    // Fetch distinct tail numbers when the component mounts
+    axios.get("http://localhost:3001/api/getairplanes")
+      .then(response => {
+        setTailNumbers(response.data);
+  
+        // Set the selected tail number from the URL parameter
+        setFormData(prevState => ({
+          ...prevState,
+          tailNumber: tailNumber || "",
+        }));
+      })
+      .catch(error => {
+        console.error("Error fetching tail numbers:", error);
+      });
+  }, [tailNumber]); // Include tailNumber in the dependency array
+
+
 
   const handleChange = (e) => {
     setFormData({
@@ -27,21 +50,24 @@ const BookingPage2 = () => {
   const handleGoBack = () => {
     navigate(-1); // Go back one step in the history
   };
-     const handleSubmit = (e) => {
-         e.preventDefault();
-    
-   
-    // Your logic to submit the form data to the server
-    // For example, you can use axios.post to make a POST request
 
-    axios.post("http://localhost:3001/api/post", formData)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios.post("http://localhost:3001/api/post", {
+      firstname: formData.firstName,
+      lastname: formData.lastName,
+      phoneno: formData.phone,
+      miles: formData.miles,
+      tailnumber: formData.tailNumber,
+    })
       .then((response) => {
-        // Handle success, e.g., show a success message
+        // Handle success
         console.log("Booking successful!");
-        navigate("/success"); // Navigate to the success page
+        navigate("/success");
       })
       .catch((error) => {
-        // Handle error, e.g., show an error message
+        // Handle error
         console.error("Error booking:", error);
       });
   };
@@ -99,22 +125,34 @@ const BookingPage2 = () => {
           />
         </div>
 
+        {/* <div style={{ marginBottom: "10px", display: "flex", flexDirection: "row", alignItems: "center" }}>
+          <label htmlFor="tailNumber" style={{ display: "block", width: "120px", marginRight: "10px" }}>Airplane:</label>
+          <input
+            type="text"
+            id="tailNumber"
+            name="tailNumber"
+            value={formData.tailNumber}
+            readOnly  // Make the input field read-only
+            style={{ width: "200px" }}
+          />
+        </div> */}
+
         {confirmation ? (
-            <div style={{ marginTop: "20px", textAlign: "center" }}>
-              <p style={{ marginBottom: "20px", fontSize: "18px" }}>Do you want to continue with this booking?</p>
-              <Link to="/BookingPage3">
-                <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}>Are you sure?</button>
-              </Link>
-              <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleConfirmation}>Go Back</button>
-            </div>
-          ) : (
-            <div style={{ marginTop: "20px", textAlign: "center" }}>
-              <p style={{ marginBottom: "20px", fontSize: "18px" }}>Review the details and click the button below to go the next step of your booking.</p>
-              <button className="btn btn-confirm" style={{ marginTop: "20px", margin: "auto", padding: "15px", fontSize: "18px" }} onClick={handleConfirmation} >
-                Ticket Selection Page
-              </button>
-            </div>
-          )}
+          <div style={{ marginTop: "20px", textAlign: "center" }}>
+            <p style={{ marginBottom: "20px", fontSize: "18px" }}>Do you want to continue with this booking?</p>
+            <Link to="/BookingPage3">
+              <button type="submit" className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}>Are you sure?</button>
+            </Link>
+            <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleConfirmation}>Go Back</button>
+          </div>
+        ) : (
+          <div style={{ marginTop: "20px", textAlign: "center" }}>
+            <p style={{ marginBottom: "20px", fontSize: "18px" }}>Review the details and click the button below to go the next step of your booking.</p>
+            <button className="btn btn-confirm" style={{ marginTop: "20px", margin: "auto", padding: "15px", fontSize: "18px" }} onClick={handleConfirmation} >
+              Ticket Selection Page
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );

@@ -50,6 +50,8 @@ const BookingPage1 = () => {
     navigate(-1); // Go back one step in the history
   };
 
+  
+
 return (
   <div className="container2">
       <h2 style={{ fontSize: "30px" }}className="heading">Choose Your Destination</h2>
@@ -119,7 +121,7 @@ return (
         {confirmation ? (
             <div style={{ marginTop: "20px", textAlign: "center" }}>
               <p style={{ marginBottom: "20px", fontSize: "18px" }}>Do you want to continue with this booking?</p>
-              <Link to="/BookingPage2">
+              <Link to={`/BookingPage2?tailNumber=${destinationDetails[0]["Tail Number"]}`}>
                 <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}>Continue</button>
               </Link>
               <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleConfirmation}>Go Back</button>
