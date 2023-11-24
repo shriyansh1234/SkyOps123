@@ -297,6 +297,16 @@ app.get("/api/getmyticket/:id", (req, res) => {
   });
 });
 
+app.delete("/api/deletebooking/:id", (req, res) => {
+  const { id } = req.params;
+  const sqlRemove = "DELETE FROM passengers where PassengerId = ? ";
+  db.query(sqlRemove, id, (error, result) => {
+    if (error) {
+      console.log(error);
+    }
+  });
+});
+
 app.listen(3001, () => {
     console.log("Server is running on port 3001");
   });

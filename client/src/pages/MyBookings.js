@@ -1,7 +1,10 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "./BookingPage.css";
+
 
 const MyBookings = () => {
   const navigate = useNavigate();
@@ -19,13 +22,36 @@ const MyBookings = () => {
   const handleCancellation = () => {
     setCancellation(!cancellation);
   };
-
+  const handleDelete = () => {
+    const passengerId = ticketInfo.PassengerId;
+    const apiUrl = `http://localhost:5000/api/deletebooking/${passengerId}`;
+    
+    toast.success("Ticket deleted successfully", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    axios.delete(apiUrl)
+      .then((response) => {
+        // Handle success, e.g., navigate to another page or update the UI
+        console.log("Booking deleted successfully", response);
+        
+      })
+      .catch((error) => {
+        console.error("Error deleting booking:", error);
+      });
+  };
   const handleGoBack = () => {
     navigate(-1); // Go back one step in the history
   };
 
   const handleRetrieveInfo = () => {
-    const apiUrl = `http://localhost:3001/api/getmyticket/${ticketId}`;
+    const apiUrl = `http://localhost:5000/api/getmyticket/${ticketId}`;
 
     axios.get(apiUrl)
       .then((response) => {
@@ -83,8 +109,8 @@ const MyBookings = () => {
           <div style={{ alignItems: "center" }}>
           <p style={{ marginBottom: "20px" }}>Your Cancellation Fee would be: {ticketInfo["Cancellation Fee"]}</p>
           </div>
-          <Link to="/BookingPage2">
-            <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}>Continue</button>
+          <Link to="/">
+            <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}onClick={handleDelete} >Continue</button>
           </Link>
           <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleCancellation}>Go Back</button>
         </div>
