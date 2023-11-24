@@ -21,7 +21,7 @@ const AddEdit = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/get/${id}`)
+      .get(`http://localhost:3001/api/get/${id}`)
       .then((resp) => setState({ ...resp.data[0] }));
   }, [id]);
 
@@ -32,7 +32,7 @@ const AddEdit = () => {
     } else {
       if (!id) {
         axios
-          .post("http://localhost:5000/api/post", {
+          .post("http://localhost:3001/api/post", {
             name,
             email,
             contact,
@@ -44,7 +44,7 @@ const AddEdit = () => {
         toast.success("Contact Added Successfully");
       } else {
         axios
-          .put(`http://localhost:5000/api/update/${id}`, {
+          .put(`http://localhost:3001/api/update/${id}`, {
             name,
             email,
             contact,

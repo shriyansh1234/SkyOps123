@@ -1,0 +1,35 @@
+/* Destinations.css */
+.destinations-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .destinations-list {
+    font-size: 22px;
+    list-style: none;
+    margin-top: 40px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .destination-item {
+    background-color: #ca8a04;
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    width: calc(20% - 16px);
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      background-color: #854d0e;
+    }
+  }
+  

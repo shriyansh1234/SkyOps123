@@ -8,7 +8,7 @@ const Passenger = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:5000/api/get");
+    const response = await axios.get("http://localhost:3001/api/get");
     setData(response.data);
   };
 
@@ -19,14 +19,14 @@ const [data, setData] = useState([]);
     if (
       window.confirm("Are you sure that you wanted to delete that contact ?")
     ) {
-      axios.delete(`http://localhost:5000/api/remove/${id}`);
+      axios.delete(`http://localhost:3001/api/remove/${id}`);
       toast.success("Passenger Record Deleted Successfully");
       setTimeout(() => loadData(), 500);
     }
   };
   return (
     <div className="container2">
-        <h2 className="heading">Passenger Details Page</h2>
+        <h2 style={{ fontSize: "30px"}} className="heading">Passenger Details Page</h2>
       <Link to="/addPassenger">
         <button className="btn btn-contact">Add Passenger</button>
       </Link>

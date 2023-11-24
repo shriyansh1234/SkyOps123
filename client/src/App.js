@@ -11,8 +11,12 @@ import Home from "./components/Home"
 import Airplane from "./pages/Airplanes"
 import Airport from "./pages/Airport"
 import Ticket from "./pages/Tickets"
-import BookingPage from "./pages/BookingPage";
-
+import BookingPage1 from "./pages/BookingPage1";
+import BookingPage2 from "./pages/BookingPage2";
+import BookingPage3 from "./pages/BookingPage3";
+import Destinations from "./pages/Destinations";
+import MyBookings from "./pages/MyBookings";
+import Layout from "./components/Layout";
 
 function App() {
   return (
@@ -20,17 +24,21 @@ function App() {
       <div className="App">
         <ToastContainer position="top-center" />
         <Routes> 
-        <Route exact path="/" element={<Home/>} />
-        <Route path="/addPassenger" element={<AddEditPassengers/>} />
-          <Route path="/update/:id" element={<AddEditPassengers/>} />
-          <Route path="/view/:id" element={<ViewPassengers/>} />
-          <Route path="/view1/:id" element={<ViewAirplanes/>} />
-          <Route path="/view3/:id" element={<ViewTickets/>} />
-          <Route path='/airplane' element={<Airplane/>}/>
-          <Route path='/airport' element={<Airport/>}/>
-          <Route path='/ticket' element={<Ticket/>}/>
-          <Route path='/passenger' element={<Passenger/>}/>
-          <Route path="/BookingPage" component={BookingPage} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/addPassenger" element={<Layout><AddEditPassengers/></Layout>} />
+          <Route path="/update/:id" element={<Layout><AddEditPassengers/></Layout>} />
+          <Route path="/view/:id" element={<Layout><ViewPassengers/></Layout>} />
+          <Route path="/view1/:id" element={<Layout><ViewAirplanes/></Layout>} />
+          <Route path="/view3/:id" element={<Layout><ViewTickets/></Layout>} />
+          <Route path='/airplane' element={<Layout><Airplane/></Layout>}/>
+          <Route path='/airport' element={<Layout><Airport/></Layout>}/>
+          <Route path='/ticket' element={<Layout><Ticket/></Layout>}/>
+          <Route path='/passenger' element={<Layout><Passenger/></Layout>}/>
+          <Route path="/BookingPage1" element={<Layout><BookingPage1/></Layout>} />
+          <Route path="/BookingPage2" element={<Layout><BookingPage2/></Layout>} />
+          <Route path="/BookingPage3" element={<Layout><BookingPage3/></Layout>} />
+          <Route path="/destinations" element={<Layout><Destinations/></Layout>} />
+          <Route path="/MyBookings" element={<Layout><MyBookings/></Layout>} />
         </Routes>
       </div>
     </BrowserRouter>

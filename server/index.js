@@ -7,7 +7,7 @@ const cors = require("cors");
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "Yob1#ab1",
+  password: "Alphacow_20",
   database: "airlinedatabase1",
 });
 
@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// passengers function start
+// ****  passengers function start **** 
 
 app.get("/api/get", (req, res) => {
   const sqlGet = "SELECT * FROM passengers";
@@ -26,15 +26,28 @@ app.get("/api/get", (req, res) => {
 
 
 app.post("/api/post", (req, res) => {
-  const {firstname, lastname, phoneno, id, miles } = req.body;
-  const sqlInsert =
-    "INSERT INTO passengers (FirstName, Lastname, PhoneNumber, PassengerId, Miles_on_Passenger  ) VALUES (?, ?, ?, ?, ?)";
-  db.query(sqlInsert, [firstname, lastname, phoneno, id, miles], (error, result) => {
+  const {firstname, lastname, phoneno, miles} = req.body;
+  db.query('SELECT MAX(PassengerId) AS maxPassengerId FROM passengers', (error, results) => {
     if (error) {
-      console.log(error);
+      console.error(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
+    const maxPassengerId = results[0].maxPassengerId || 0;
+    const newPassengerId = maxPassengerId + 1;
+
+    const sqlInsert =
+      "INSERT INTO passengers (FirstName, Lastname, PhoneNumber, PassengerId, Miles_on_Passenger) VALUES (?, ?, ?, ?, ?)";
+    db.query(sqlInsert, [firstname, lastname, phoneno, newPassengerId, miles], (error, result) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+
+      return res.status(200).json({ message: 'Passenger added successfully' });
+    });
   });
 });
+
 
 app.delete("/api/remove/:id", (req, res) => {
   const { id } = req.params;
@@ -80,9 +93,9 @@ app.get("/", (req, res) =>
 //   }); 
 });
 
-// passenger function ends
+// ****  passenger function ends **** 
 
-// airplane function starts
+// ****  airplane function starts **** 
 
 app.get("/api/get1", (req, res) => {
   const sqlGet = "SELECT * FROM airplanes";
@@ -135,9 +148,9 @@ app.put("/api/update1/:id", (req, res) => {
   });
 });
 
-// airplanes function ends
+// ****  airplanes function ends **** 
 
-// airport function starts
+//  **** airport function starts **** 
 app.get("/api/get2", (req, res) => {
   const sqlGet = "SELECT * FROM airport";
   db.query(sqlGet, (error, result) => {
@@ -188,9 +201,9 @@ app.put("/api/update2/:id", (req, res) => {
     res.send(result);
   });
 });
-// airport function ends
+// ****  airport function ends **** 
 
-// ticket function starts
+// ****  ticket function starts **** 
 
 app.get("/api/get3", (req, res) => {
   const sqlGet = "SELECT * FROM tickets";
@@ -243,8 +256,57 @@ app.put("/api/update3/:id", (req, res) => {
   });
 });
 
-// ticket function ends
+// ****  ticket function ends **** 
 
-app.listen(5000, () => {
-    console.log("Server is running on port 5000");
+
+
+// **** destination retrival function ****
+
+app.get("/api/getdestination", (req, res) => {
+  const { id } = req.params;
+  const sqlGet = "SELECT DISTINCT Destination as `List of Destinations` FROM airplanes ";
+  db.query(sqlGet, id, (error, result) => {
+    if (error) {
+      console.log(error);
+    }
+    res.send(result);
+  });
+});
+
+//  **** booking  page function ****
+app.get("/api/getdestination/:selectedDestination", (req, res) => {
+  const { selectedDestination } = req.params;
+  const sqlGet = "SELECT * FROM airplanes WHERE destination = ? ";
+  db.query(sqlGet, selectedDestination, (error, result) => {
+    if (error) {
+      console.log(error);
+    }
+    res.send(result);
+  });
+});
+
+//  **** my booking  retrieval function ****
+app.get("/api/getmyticket/:id", (req, res) => {
+  const { id } = req.params;
+  const sqlGet = "SELECT t.Cost,t.TicketID,t.BookingDate, t.`Cancellation Fee`,t.Class, t.Departure_Date, t.`Seat Number`,p.PassengerId,p.FirstName,p.Lastname,p.PhoneNumber,p.PassengerId,p.Miles_on_Passenger,p.`Tail Number` FROM tickets as t JOIN passengers as p ON t.PassengerID = p.PassengerId WHERE t.TicketID = ? ";
+  db.query(sqlGet, id, (error, result) => {
+    if (error) {
+      console.log(error);
+    }
+    res.send(result);
+  });
+});
+
+app.delete("/api/deletebooking/:id", (req, res) => {
+  const { id } = req.params;
+  const sqlRemove = "DELETE FROM passengers where PassengerId = ? ";
+  db.query(sqlRemove, id, (error, result) => {
+    if (error) {
+      console.log(error);
+    }
+  });
+});
+
+app.listen(3001, () => {
+    console.log("Server is running on port 3001");
   });

@@ -28,7 +28,7 @@
 
 //   useEffect(() => {
 //     axios
-//       .get(`http://localhost:5000/api/get1/${id}`)
+//       .get(`http://localhost:3001/api/get1/${id}`)
 //       .then((resp) => setState({ ...resp.data[0] }));
 //   }, [id]);
 
@@ -40,7 +40,7 @@
 //     } else {
 //       if (!id) {
 //         axios
-//           .post("http://localhost:5000/api/post1", {
+//           .post("http://localhost:3001/api/post1", {
 //             arrivalTime,
 //             departureTime,
 //             Source,
@@ -64,7 +64,7 @@
 //         toast.success("Airplane Added Successfully");
 //       } else {
 //         axios
-//           .put(`http://localhost:5000/api/update1/${id}`, {
+//           .put(`http://localhost:3001/api/update1/${id}`, {
 //             arrivalTime,
 //             departureTime,
 //             Source,

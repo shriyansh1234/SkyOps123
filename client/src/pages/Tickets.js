@@ -8,7 +8,7 @@ const Tickets = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:5000/api/get3");
+    const response = await axios.get("http://localhost:3001/api/get3");
     setData(response.data);
   };
 
@@ -19,14 +19,14 @@ const [data, setData] = useState([]);
     if (
       window.confirm("Are you sure that you wanted to delete that ticket ?")
     ) {
-      axios.delete(`http://localhost:5000/api/remove3/${id}`);
+      axios.delete(`http://localhost:3001/api/remove3/${id}`);
       toast.success("Ticket Record Deleted Successfully");
       setTimeout(() => loadData(), 500);
     }
   };
   return (
     <div className="container4">
-        <h2 className="heading">Ticket Details Page</h2>
+        <h2 style={{ fontSize: "30px"}}className="heading">Ticket Details Page</h2>
       <Link to="/addPassenger">
         <button className="btn btn-contact">Add Ticket</button>
       </Link>
