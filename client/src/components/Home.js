@@ -20,7 +20,7 @@ const Home = () => {
             <p className='primary-text'>
             Welcome to the future of aviation data management! Our team has crafted a cutting-edge solution to revolutionize the way we interact with aviation information.
             </p>
-            <a href='/addPassenger'>
+            <a href='/BookingPage1'>
               <button className='secondary-button' >
                 Book Now <FiArrowRight />
               </button>
