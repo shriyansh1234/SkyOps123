@@ -58,7 +58,7 @@ const BookingPage3 = () => {
 
 
   return (
-    <div className="container">
+    <div className="container2">
       <h2 className="heading">Ticket Details Page</h2>
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div style={{ marginBottom: "10px", display: "flex", flexDirection: "row", alignItems: "center" }}>

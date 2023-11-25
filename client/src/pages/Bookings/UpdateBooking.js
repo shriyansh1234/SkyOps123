@@ -51,7 +51,7 @@ const UpdateBooking = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container2">
       <h2 style={{ fontSize: "30px" }} className="heading">
         Update Booking
       </h2>
@@ -119,11 +119,11 @@ const UpdateBooking = () => {
             </label>
             </div>
             <div style={{ marginBottom: "10px", display: "flex", flexDirection: "row", alignItems: "center" }}>
-            <label htmlFor = "SeatNumber" style={{ display: "block", width: "120px", marginRight: "10px" }}>
+            <label htmlFor = "Seat Number" style={{ display: "block", width: "120px", marginRight: "10px" }}>
               Seat Number:
               <input
                 type="text"
-                name="SeatNumber"
+                name="Seat Number"
                 value={bookingInfo?.SeatNumber || ""}
                 onChange={handleInputChange}
                 style={{ width: "200px" }}

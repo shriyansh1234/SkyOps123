@@ -68,7 +68,7 @@ const MyBookings = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container2">
       <h2 style={{ fontSize: "30px"}} className="heading">My Bookings</h2>
       <form onSubmit={(e) => { e.preventDefault(); handleRetrieveInfo(); }} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div style={{ fontSize: "22px", marginBottom: "10px", display: "flex", flexDirection: "row", alignItems: "center" }}>

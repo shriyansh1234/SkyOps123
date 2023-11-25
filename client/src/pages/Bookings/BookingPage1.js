@@ -67,13 +67,13 @@ return (
         <div>
         <h3 style={{ fontSize: "30px" }}className="heading">Selected Destination: {selectedDestination}</h3>
         {destinationDetails && (
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "20px", marginTop: "20px" }}>
             <h3>Destination Details</h3>
             <table className="table styled-table">
               <thead>
                 <tr>
-                  <th style={{ textAlign: "left" }}>Field</th>
-                  <th style={{ textAlign: "left" }}>Value</th>
+                  <th style={{ textAlign: "left" }}>Tail Number</th>
+                  <th style={{ textAlign: "left" }}>{destinationDetails[0]["Tail Number"]}</th>
                 </tr>
               </thead>
               <tbody>
@@ -98,10 +98,6 @@ return (
                   <td>{destinationDetails[0]["Duration"]}</td>
                 </tr>
                 <tr>
-                  <td>Tail Number</td>
-                  <td>{destinationDetails[0]["Tail Number"]}</td>
-                </tr>
-                <tr>
                   <td>Airline</td>
                   <td>{destinationDetails[0]["Airline"]}</td>
                 </tr>
@@ -121,7 +117,7 @@ return (
         {confirmation ? (
             <div style={{ marginTop: "20px", textAlign: "center" }}>
               <p style={{ marginBottom: "20px", fontSize: "18px" }}>Do you want to continue with this booking?</p>
-              <Link to={`/BookingPage2?tailNumber=${destinationDetails[0]["Tail Number"]}`}>
+              <Link to={`/BookingPage2/${destinationDetails[0]["Tail Number"]}`}>
                 <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}>Continue</button>
               </Link>
               <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleConfirmation}>Go Back</button>
