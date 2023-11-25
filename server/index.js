@@ -207,16 +207,83 @@ app.get("/api/get3", (req, res) => {
   });
 });
 
+// ... (your existing code)
+
+// Add this new endpoint to insert a new ticket with the logic you described
 app.post("/api/post3", (req, res) => {
-  const {cost, ticketID, source, destination, seat_number, departure_date, plane_class, cancels, booking_date, cancellation_fee   } = req.body;
-  const sqlInsert =
-    "INSERT INTO tickets (cost, ticketID, source, destination, seat_number, departure_date, plane_class, cancels, booking_date, cancellation_fee  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  db.query(sqlInsert, [cost, ticketID, source, destination, seat_number, departure_date, plane_class, cancels, booking_date, cancellation_fee], (error, result) => {
+  const {
+    cost,
+    source,
+    destination,
+    seat_number,
+    departure_date,
+    plane_class,
+    cancels,
+    booking_date,
+    cancellation_fee,
+  } = req.body;
+
+  // Get the maximum PassengerId from the passengers table
+  const sqlGetMaxPassengerId = "SELECT MAX(PassengerId) AS MaxPassengerId FROM passengers";
+
+  db.query(sqlGetMaxPassengerId, (error, result) => {
     if (error) {
       console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
+
+    const maxPassengerId = result[0].MaxPassengerId || 0; // If there are no passengers, start from 0
+
+    // Generate the next PassengerId
+    const newPassengerId = maxPassengerId;
+
+    // Get the maximum TicketId from the tickets table
+    const sqlGetMaxTicketId = "SELECT MAX(TicketID) AS MaxTicketId FROM tickets";
+
+    db.query(sqlGetMaxTicketId, (error, ticketResult) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+
+      const maxTicketId = ticketResult[0].MaxTicketId || 0; // If there are no tickets, start from 0
+
+      // Generate the next TicketId
+      const newTicketId = maxTicketId + 1;
+
+      const ticketIDString = `tkt${String(newTicketId).padStart(3, '0')}`;
+
+      const sqlInsertTicket =
+        "INSERT INTO tickets (Cost, TicketID, `Seat Number`, Departure_Date, Class, Cancels, BookingDate, `Cancellation Fee`, PassengerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+      db.query(
+        sqlInsertTicket,
+        [
+          cost,
+          ticketIDString,
+          seat_number,
+          departure_date,
+          plane_class,
+          cancels,
+          booking_date,
+          cancellation_fee,
+          newPassengerId,
+        ],
+        (error, result) => {
+          if (error) {
+            console.log(error);
+            return res.status(500).json({ error: 'Internal Server Error' });
+          }
+
+          return res.status(200).json({ message: 'Ticket added successfully' });
+        }
+      );
+    });
   });
 });
+
+// ... (continue with the rest of your code)
+
 
 app.delete("/api/remove3/:id", (req, res) => {
   const { id } = req.params;
