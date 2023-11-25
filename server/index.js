@@ -7,7 +7,7 @@ const cors = require("cors");
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "Yob1#ab1",
+  password: "Alphacow_20",
   database: "airlinedatabase1",
 });
 
@@ -26,27 +26,21 @@ app.get("/api/get", (req, res) => {
 
 
 app.post("/api/post", (req, res) => {
-  const {firstname, lastname, phoneno, miles} = req.body;
-  db.query('SELECT MAX(PassengerId) AS maxPassengerId FROM passengers', (error, results) => {
+  const { firstname, lastname, phoneno, miles, tailnumber } = req.body;
+
+  const sqlInsert =
+    "INSERT INTO passengers (FirstName, Lastname, PhoneNumber, Miles_on_Passenger, `Tail Number`) VALUES (?, ?, ?, ?, ?)";
+  
+  db.query(sqlInsert, [firstname, lastname, phoneno, miles, tailnumber], (error, result) => {
     if (error) {
       console.error(error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
-    const maxPassengerId = results[0].maxPassengerId || 0;
-    const newPassengerId = maxPassengerId + 1;
 
-    const sqlInsert =
-      "INSERT INTO passengers (FirstName, Lastname, PhoneNumber, PassengerId, Miles_on_Passenger) VALUES (?, ?, ?, ?, ?)";
-    db.query(sqlInsert, [firstname, lastname, phoneno, newPassengerId, miles], (error, result) => {
-      if (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'Internal Server Error' });
-      }
-
-      return res.status(200).json({ message: 'Passenger added successfully' });
-    });
+    return res.status(200).json({ message: 'Passenger added successfully' });
   });
 });
+
 
 
 app.delete("/api/remove/:id", (req, res) => {

@@ -35,7 +35,7 @@ function App() {
           <Route path='/ticket' element={<Layout><Ticket/></Layout>}/>
           <Route path='/passenger' element={<Layout><Passenger/></Layout>}/>
           <Route path="/BookingPage1" element={<Layout><BookingPage1/></Layout>} />
-          <Route path="/BookingPage2" element={<Layout><BookingPage2/></Layout>} />
+          <Route path="/BookingPage2/:id" element={<Layout><BookingPage2/></Layout>} />
           <Route path="/BookingPage3" element={<Layout><BookingPage3/></Layout>} />
           <Route path="/destinations" element={<Layout><Destinations/></Layout>} />
           <Route path="/MyBookings" element={<Layout><MyBookings/></Layout>} />
