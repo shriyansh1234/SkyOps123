@@ -408,6 +408,22 @@ ORDER BY
   });
 });
 
+app.get("/api/getmaxpassengerid", (req, res) => {
+  const sqlGetMaxPassengerId = "SELECT MAX(PassengerId) AS MaxPassengerId FROM passengers";
+  
+  db.query(sqlGetMaxPassengerId, (error, result) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    // Assuming the result is an array with a single object containing MaxPassengerId
+    const maxPassengerId = result[0].MaxPassengerId;
+    
+    return res.status(200).json({ maxPassengerId });
+  });
+});
+
 app.listen(3001, () => {
     console.log("Server is running on port 3001");
   });

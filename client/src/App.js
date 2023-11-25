@@ -16,6 +16,9 @@ import BookingPage2 from "./pages/Bookings/BookingPage2";
 import BookingPage3 from "./pages/Bookings/BookingPage3";
 import UpdateBooking from "./pages/Bookings/UpdateBooking";
 import MyBookings from "./pages/Bookings/MyBookings";
+import Busiest from "./pages/InterestingQueries/BusiestAirport";
+import Distribution from "./pages/InterestingQueries/ClassDistribution";
+import TicketsSold from "./pages/InterestingQueries/TicketsSold";
 import Layout from "./components/Layout";
 
 function App() {
@@ -38,6 +41,9 @@ function App() {
           <Route path="/destinations" element={<Layout><Destinations/></Layout>} />
           <Route path="/MyBookings" element={<Layout><MyBookings/></Layout>} />
           <Route path="/UpdateBooking/:id" element={<Layout><UpdateBooking/></Layout>} />
+          <Route path="/busiest" element={<Layout><Busiest/></Layout>} />
+          <Route path="/distribution" element={<Layout><Distribution/></Layout>} />
+          <Route path="/ticketsSold" element={<Layout><TicketsSold/></Layout>} />
         </Routes>
       </div>
     </BrowserRouter>

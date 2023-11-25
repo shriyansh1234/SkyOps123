@@ -70,6 +70,9 @@ const Navbar = () => {
             <a href="/airplane">Airplanes</a>
             <a href="/passenger">Passengers</a>
             <a href="/destinations">Destinations</a>
+            <a href="/busiest">Traffic</a>
+            <a href="/ticketsSold">Tickets Sold</a>
+            <a href="/distribution">Class Distribution</a>
             <a href="/BookingPage1">
               <button className="primary-button">Bookings Now</button>
             </a>

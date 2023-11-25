@@ -146,17 +146,19 @@ const BookingPage2 = () => {
             <p style={{ marginBottom: "20px", fontSize: "18px" }}>
               Do you want to continue with this booking?
             </p>
-            <button
-              type="submit"
-              className="btn btn-confirm"
-              style={{
-                margin: "20px",
-                padding: "15px",
-                fontSize: "18px",
-              }}
-            >
-              Confirm Booking
-            </button>
+            <Link to={`/BookingPage3`}>
+              <button
+                type="submit"
+                className="btn btn-confirm"
+                style={{
+                  margin: "20px",
+                  padding: "15px",
+                  fontSize: "18px",
+                }}
+              >
+                Continue
+              </button>
+            </Link>
             <button
               className="btn btn-confirm"
               style={{
