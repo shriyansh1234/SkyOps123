@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
@@ -9,11 +11,10 @@ const BookingPage3 = () => {
     
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
     departureDate: new Date(),
-    miles: "",
+    seatNumber: "",
+    classType: "First",
+    cost: "",
   });
   const [confirmation, setConfirmation] = useState(false);
 
@@ -23,6 +24,7 @@ const BookingPage3 = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const handleConfirmation = () => {
     setConfirmation(!confirmation);
   };
@@ -37,22 +39,76 @@ const BookingPage3 = () => {
   const handleGoBack = () => {
     navigate(-1); // Go back one step in the history
   };
-     const handleSubmit = (e) => {
-         e.preventDefault();
-    
-   
-    // Your logic to submit the form data to the server
-    // For example, you can use axios.post to make a POST request
 
-    axios.post("http://localhost:3001/api/post", formData)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    // Format departureDate to "MM/DD/YYYY"
+    const formattedDepartureDate = formData.departureDate.toLocaleDateString('en-US');
+
+   
+    // Fetch miles for the passenger with the max PassengerId
+    axios.get("http://localhost:3001/api/getmaxmiles")
       .then((response) => {
-        // Handle success, e.g., show a success message
-        console.log("Booking successful!");
-        navigate("/success"); // Navigate to the success page
+        const miles = response.data.maxMiles || 0; // If there are no passengers, start from 0
+  
+        // Calculate cost based on miles and classType
+        let cost = 0;
+        const classType = formData.classType;
+  
+        // Adjust cost based on classType
+        if (classType === 'First') {
+          cost += 1000;
+        } else if (classType === 'Business') {
+          cost += 600;
+        } else if (classType === 'Economy') {
+          cost += 300;
+        }
+  
+        // Adjust cost based on miles (add your formula here)
+        const milesAdjustment = Math.min(miles / 100, 50);  // You may need to adjust this formula based on your requirements
+        cost -= milesAdjustment;
+  
+        // Round the cost to the nearest 10
+        cost = Math.round(cost / 10) * 10;
+        const formattedCost = `$${cost}`;
+  
+        // Include additional ticket details in the form data
+        const ticketData = {
+          departureDate: formattedDepartureDate,
+          seatNumber: formData.seatNumber,
+          classType: formData.classType,
+          cost: formattedCost,  // Convert to string if your input field requires a string value
+        };
+  
+        // Your logic to submit the form data and ticketData to the server
+        // For example, you can use axios.post to make a POST request
+        axios.post("http://localhost:3001/api/post3", ticketData)
+          .then((response) => {
+            // Handle success, e.g., show a success message
+            console.log("Booking successful!", response);
+            navigate("/");
+            toast.success("Ticket Added Successfully!!", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          })
+          .catch((error) => {
+            // Handle error, e.g., show an error message
+            console.error("Error booking:", error);
+          });
+  
+        // Continue with the confirmation process
+        setConfirmation(!confirmation);
       })
       .catch((error) => {
-        // Handle error, e.g., show an error message
-        console.error("Error booking:", error);
+        console.error("Error fetching max miles:", error);
       });
   };
 
@@ -78,9 +134,9 @@ const BookingPage3 = () => {
           <label htmlFor="seatNumber" style={{ display: "block", width: "120px", marginRight: "10px" }}>Seat Number:</label>
           <input
             type="text"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
+            id="seatNumber"
+            name="seatNumber"
+            value={formData.seatNumber}
             onChange={handleChange}
             style={{ width: "200px" }} // Adjust the width as needed
           />
@@ -88,11 +144,11 @@ const BookingPage3 = () => {
 
         
         <div style={{ marginBottom: "10px", display: "flex", flexDirection: "row", alignItems: "center" }}>
-        <label htmlFor="class" style={{ display: "block", width: "120px", marginRight: "10px" }}>Class:</label>
+        <label htmlFor="classType" style={{ display: "block", width: "120px", marginRight: "10px" }}>Class:</label>
         <select
-            id="class"
-            name="class"
-            value={formData.class}
+            id="classType"
+            name="classType"
+            value={formData.classType}
             onChange={handleChange}
             style={{ width: "200px" }}
         >
@@ -102,23 +158,11 @@ const BookingPage3 = () => {
         </select>
         </div>
 
-        <div style={{ marginBottom: "10px", display: "flex", flexDirection: "row", alignItems: "center" }}>
-          <label htmlFor="miles" style={{ display: "block", width: "120px", marginRight: "10px" }}>Miles:</label>
-          <input
-            type="text"
-            id="miles"
-            name="miles"
-            value={formData.miles}
-            onChange={handleChange}
-            style={{ width: "200px" }} // Adjust the width as needed
-          />
-        </div>
-
         {confirmation ? (
             <div style={{ marginTop: "20px", textAlign: "center" }}>
               <p style={{ marginBottom: "20px", fontSize: "18px" }}>Do you want to continue with this booking?</p>
-              <Link to="/BookingPage3">
-                <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}>Are you sure?</button>
+              <Link to="/">
+                <button type="submit" className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}onClick={handleSubmit}>Are you sure?</button>
               </Link>
               <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleConfirmation}>Go Back</button>
             </div>

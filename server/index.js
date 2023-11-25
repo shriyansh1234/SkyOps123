@@ -30,8 +30,8 @@ app.post("/api/post", (req, res) => {
   const { firstname, lastname, phoneno, miles, tailnumber } = req.body;
 
   const sqlInsert =
-    "INSERT INTO passengers (FirstName, Lastname, PhoneNumber, Miles_on_Passenger, Tail Number) VALUES (?, ?, ?, ?, ?)";
-
+    "INSERT INTO passengers (FirstName, Lastname, PhoneNumber, Miles_on_Passenger, `Tail Number`) VALUES (?, ?, ?, ?, ?)";
+  
   db.query(sqlInsert, [firstname, lastname, phoneno, miles, tailnumber], (error, result) => {
     if (error) {
       console.error(error);
@@ -41,6 +41,7 @@ app.post("/api/post", (req, res) => {
     return res.status(200).json({ message: 'Passenger added successfully' });
   });
 });
+
 
 
 app.delete("/api/remove/:id", (req, res) => {
@@ -206,16 +207,86 @@ app.get("/api/get3", (req, res) => {
   });
 });
 
+// ... (your existing code)
+
+// Add this new endpoint to insert a new ticket with the logic you described
 app.post("/api/post3", (req, res) => {
-  const {cost, ticketID, source, destination, seat_number, departure_date, plane_class, cancels, booking_date, cancellation_fee   } = req.body;
-  const sqlInsert =
-    "INSERT INTO tickets (cost, ticketID, source, destination, seat_number, departure_date, plane_class, cancels, booking_date, cancellation_fee  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  db.query(sqlInsert, [cost, ticketID, source, destination, seat_number, departure_date, plane_class, cancels, booking_date, cancellation_fee], (error, result) => {
+  const {
+    departureDate,
+    seatNumber,
+    classType,
+    cost,
+    // Remove cancels, booking_date, and cancellation_fee from the request body
+  } = req.body;
+
+  // Get the maximum PassengerId from the passengers table
+  const sqlGetMaxPassengerId = "SELECT MAX(PassengerId) AS MaxPassengerId FROM passengers";
+
+  db.query(sqlGetMaxPassengerId, (error, result) => {
     if (error) {
       console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
     }
+
+    const maxPassengerId = result[0].MaxPassengerId || 0; // If there are no passengers, start from 0
+
+    // Generate the next PassengerId
+    const newPassengerId = maxPassengerId;
+
+    // Get the maximum TicketId from the tickets table
+    const sqlGetMaxTicketId = "SELECT MAX(TicketID) AS MaxTicketId FROM tickets";
+
+    db.query(sqlGetMaxTicketId, (error, ticketResult) => {
+      if (error) {
+        console.log("Error getting max ticket id:", error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+
+      const maxTicketId = ticketResult[0].MaxTicketId || 0;
+
+      // Extract the last 3 digits and increment
+      const lastThreeDigits = parseInt(maxTicketId.substr(3), 10) + 1;
+
+      // Ensure it is a 3-digit number
+      const newTicketId = lastThreeDigits.toString().padStart(3, '0');
+
+      const ticketIDString = `TKT${newTicketId}`;
+
+      // Set BookingDate to today's date and Cancels to 'No'
+      const today = new Date();
+      const formattedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+
+      const sqlInsertTicket =
+        "INSERT INTO tickets (Cost, TicketID, `Seat Number`, Departure_Date, Class, Cancels, BookingDate, `Cancellation Fee`, PassengerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+      db.query(
+        sqlInsertTicket,
+        [
+          cost,
+          ticketIDString,
+          seatNumber,
+          departureDate,
+          classType,
+          'No', // Set Cancels to 'No'
+          formattedDate, // Set BookingDate to today's date
+          0, // Assuming `Cancellation Fee` is a numeric field, you can adjust this accordingly
+          newPassengerId,
+        ],
+        (error, result) => {
+          if (error) {
+            console.log(error);
+            return res.status(500).json({ error: 'Internal Server Error' });
+          }
+
+          return res.status(200).json({ message: 'Ticket added successfully' });
+        }
+      );
+    });
   });
 });
+
+// ... (continue with the rest of your code)
+
 
 app.delete("/api/remove3/:id", (req, res) => {
   const { id } = req.params;
@@ -404,6 +475,38 @@ ORDER BY
       console.log(error);
     }
     res.send(result);
+  });
+});
+
+app.get("/api/getmaxpassengerid", (req, res) => {
+  const sqlGetMaxPassengerId = "SELECT MAX(PassengerId) AS MaxPassengerId FROM passengers";
+  
+  db.query(sqlGetMaxPassengerId, (error, result) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    // Assuming the result is an array with a single object containing MaxPassengerId
+    const maxPassengerId = result[0].MaxPassengerId;
+    
+    return res.status(200).json({ maxPassengerId });
+  });
+});
+
+app.get("/api/getmaxmiles", (req, res) => {
+  const sqlGetMaxMiles = "SELECT MAX(Miles_on_Passenger) AS MaxMiles FROM passengers";
+
+  db.query(sqlGetMaxMiles, (error, result) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    // Assuming the result is an array with a single object containing MaxMiles
+    const maxMiles = result[0].MaxMiles;
+
+    return res.status(200).json({ maxMiles });
   });
 });
 

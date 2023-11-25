@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
@@ -43,6 +45,16 @@ const BookingPage2 = () => {
   };
 
   const handleSubmit = () => {
+    toast.success("Passenger Added Successfully!!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     axios
       .post("http://localhost:3001/api/post", {
         firstname: formData.firstName,
@@ -146,17 +158,20 @@ const BookingPage2 = () => {
             <p style={{ marginBottom: "20px", fontSize: "18px" }}>
               Do you want to continue with this booking?
             </p>
-            <button
-              type="submit"
-              className="btn btn-confirm"
-              style={{
-                margin: "20px",
-                padding: "15px",
-                fontSize: "18px",
-              }}
-            >
-              Confirm Booking
-            </button>
+            <Link to={`/BookingPage3`}>
+              <button
+                type="submit"
+                className="btn btn-confirm"
+                style={{
+                  margin: "20px",
+                  padding: "15px",
+                  fontSize: "18px",
+                }}
+                onClick={handleSubmit}
+              >
+                Continue
+              </button>
+            </Link>
             <button
               className="btn btn-confirm"
               style={{
