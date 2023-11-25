@@ -155,6 +155,7 @@ const BookingPage2 = () => {
                   padding: "15px",
                   fontSize: "18px",
                 }}
+                onClick={handleSubmit}
               >
                 Continue
               </button>

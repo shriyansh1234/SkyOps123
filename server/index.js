@@ -212,15 +212,11 @@ app.get("/api/get3", (req, res) => {
 // Add this new endpoint to insert a new ticket with the logic you described
 app.post("/api/post3", (req, res) => {
   const {
+    departureDate,
+    seatNumber,
+    classType,
     cost,
-    source,
-    destination,
-    seat_number,
-    departure_date,
-    plane_class,
-    cancels,
-    booking_date,
-    cancellation_fee,
+    // Remove cancels, booking_date, and cancellation_fee from the request body
   } = req.body;
 
   // Get the maximum PassengerId from the passengers table
@@ -242,16 +238,23 @@ app.post("/api/post3", (req, res) => {
 
     db.query(sqlGetMaxTicketId, (error, ticketResult) => {
       if (error) {
-        console.log(error);
+        console.log("Error getting max ticket id:", error);
         return res.status(500).json({ error: 'Internal Server Error' });
       }
 
-      const maxTicketId = ticketResult[0].MaxTicketId || 0; // If there are no tickets, start from 0
+      const maxTicketId = ticketResult[0].MaxTicketId || 0;
 
-      // Generate the next TicketId
-      const newTicketId = maxTicketId + 1;
+      // Extract the last 3 digits and increment
+      const lastThreeDigits = parseInt(maxTicketId.substr(3), 10) + 1;
 
-      const ticketIDString = `tkt${String(newTicketId).padStart(3, '0')}`;
+      // Ensure it is a 3-digit number
+      const newTicketId = lastThreeDigits.toString().padStart(3, '0');
+
+      const ticketIDString = `TKT${newTicketId}`;
+
+      // Set BookingDate to today's date and Cancels to 'No'
+      const today = new Date();
+      const formattedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
 
       const sqlInsertTicket =
         "INSERT INTO tickets (Cost, TicketID, `Seat Number`, Departure_Date, Class, Cancels, BookingDate, `Cancellation Fee`, PassengerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -261,12 +264,12 @@ app.post("/api/post3", (req, res) => {
         [
           cost,
           ticketIDString,
-          seat_number,
-          departure_date,
-          plane_class,
-          cancels,
-          booking_date,
-          cancellation_fee,
+          seatNumber,
+          departureDate,
+          classType,
+          'No', // Set Cancels to 'No'
+          formattedDate, // Set BookingDate to today's date
+          0, // Assuming `Cancellation Fee` is a numeric field, you can adjust this accordingly
           newPassengerId,
         ],
         (error, result) => {
@@ -488,6 +491,22 @@ app.get("/api/getmaxpassengerid", (req, res) => {
     const maxPassengerId = result[0].MaxPassengerId;
     
     return res.status(200).json({ maxPassengerId });
+  });
+});
+
+app.get("/api/getmaxmiles", (req, res) => {
+  const sqlGetMaxMiles = "SELECT MAX(Miles_on_Passenger) AS MaxMiles FROM passengers";
+
+  db.query(sqlGetMaxMiles, (error, result) => {
+    if (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    // Assuming the result is an array with a single object containing MaxMiles
+    const maxMiles = result[0].MaxMiles;
+
+    return res.status(200).json({ maxMiles });
   });
 });
 
