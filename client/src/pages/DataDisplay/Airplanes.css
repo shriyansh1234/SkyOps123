@@ -1,0 +1,97 @@
+/* Airplanes.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgba(15, 26, 43, 0.801);
+  font-family: 'Arial', sans-serif;
+  color: #ecf0f1;
+}
+
+.container1{
+  background-color: #1e272e;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  margin: 50px auto;
+  padding: 20px;
+  max-width: 100%;
+}
+
+.heading {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #136094;
+}
+
+.btn-primary {
+  background-color: #136094;
+  color: #ecf0f1;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.styled-table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.styled-table thead tr {
+  background-color: #161c22;
+  color: #ecf0f1;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #161c22;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #161c22;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #3498db;
+}
+
+.btn {
+  border: none;
+  color: #ecf0f1;
+  padding: 5px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #1b5e8bbd;
+}
+
+.btn-delete {
+  background-color: #6d231bab;
+}
+
+.btn-view {
+  background-color: #35bb2371;
+  color: #ecf0f1;
+}
+
+.btn-contact {
+  background-color: #3d5ada7a;
+  margin-bottom: 10px;
+}

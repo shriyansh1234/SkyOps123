@@ -24,6 +24,7 @@ app.get("/api/get", (req, res) => {
   });
 });
 
+// this is for adding in new bookingpage2
 
 app.post("/api/post", (req, res) => {
   const { firstname, lastname, phoneno, miles, tailnumber } = req.body;
@@ -285,7 +286,8 @@ app.get("/api/getdestination/:selectedDestination", (req, res) => {
 
 app.get("/api/getmyticket/:id", (req, res) => {
   const { id } = req.params;
-  const sqlGet = "SELECT t.Cost,t.TicketID,t.BookingDate, t.`Cancellation Fee`,t.Class, t.Departure_Date, t.`Seat Number`,p.PassengerId,p.FirstName,p.Lastname,p.PhoneNumber,p.PassengerId,p.Miles_on_Passenger,p.`Tail Number` FROM tickets as t JOIN passengers as p ON t.PassengerID = p.PassengerId WHERE t.TicketID = ? ";
+  const sqlGet = `SELECT t.Cost,t.TicketID,t.BookingDate, t.\`Cancellation Fee\`,t.Class, t.Departure_Date, t.\`Seat Number\`,p.PassengerId,p.FirstName,p.Lastname,p.PhoneNumber,p.PassengerId,p.Miles_on_Passenger,p.\`Tail Number\` 
+  FROM tickets as t JOIN passengers as p ON t.PassengerID = p.PassengerId WHERE t.TicketID = ?` ;
   db.query(sqlGet, id, (error, result) => {
     if (error) {
       console.log(error);
@@ -310,7 +312,10 @@ app.put("/api/updatebooking/:id", (req, res) => {
   const { id } = req.params;
   const { FirstName, Lastname, PhoneNumber, Miles_on_Passenger, Class, SeatNumber } = req.body;
   
-  const sqlUpdate = "UPDATE passengers as p JOIN tickets as t ON p.PassengerId = t.PassengerID SET p.FirstName = ?,  p.Lastname = ?, p.PhoneNumber = ?, p.Miles_on_Passenger = ?, t.Class = ?, t.`Seat Number` = ? WHERE t.TicketID = ?";
+  const sqlUpdate = `UPDATE passengers as p 
+  JOIN tickets as t ON p.PassengerId = t.PassengerID 
+  SET p.FirstName = ?,  p.Lastname = ?, p.PhoneNumber = ?, p.Miles_on_Passenger = ?, t.Class = ?, t.\`Seat Number\` = ? 
+  WHERE t.TicketID = ?`;
   console.log("Received data:", req.body);
   console.log(req.params);
   db.query(sqlUpdate, [FirstName, Lastname, PhoneNumber, Miles_on_Passenger, Class, SeatNumber, id], (error, result) => {
@@ -323,6 +328,85 @@ app.put("/api/updatebooking/:id", (req, res) => {
   });
 });
 
+
+
+
+//  **** my booking end ****
+
+//  **** Interesting Queries ****
+
+//  **** Total Number of Tickets Sold by Airline: ****
+app.get("/api/ticketssold", (req, res) => {
+  const { id } = req.params;
+  const sqlGet = `SELECT a.Airline, COUNT(DISTINCT p.PassengerID) AS TotalTicketsSold
+  FROM airplanes AS a
+  JOIN passengers AS p ON a.\`Tail Number\` = p.\`Tail Number\`
+  GROUP BY a.Airline;
+  `;
+  db.query(sqlGet, id, (error, result) => {
+    if (error) {
+      console.log(error);
+    }
+    res.send(result);
+  });
+});
+
+
+
+//  **** Busiest Airports (Based on Departures): ****
+
+app.get("/api/busiestairports", (req, res) => {
+  const { id } = req.params;
+  const sqlGet = `WITH DepartureCounts AS (
+    SELECT
+      a.Source AS DepartureAirport,
+      COUNT(*) AS DepartureCount
+    FROM
+      airplanes AS a
+    GROUP BY
+      a.Source
+  )
+  SELECT
+    DepartureAirport,
+    COALESCE(SUM(dc.DepartureCount), 0) AS TotalDepartures
+  FROM
+    DepartureCounts AS dc
+  GROUP BY
+    DepartureAirport
+  ORDER BY
+    TotalDepartures DESC;`;
+  db.query(sqlGet, id, (error, result) => {
+    if (error) {
+      console.log(error);
+    }
+    res.send(result);
+  });
+});
+//  **** Passenger Distribution by Class: ****
+
+app.get("/api/passengerdistribution", (req, res) => {
+  const { id } = req.params;
+  const sqlGet = `SELECT
+  a.\`Tail Number\` AS FlightTailNumber,
+  t.Class,
+  COUNT(t.PassengerId) AS PassengerCount
+FROM
+  tickets AS t
+JOIN
+  passengers AS p ON t.PassengerID = p.PassengerId
+JOIN 
+  airplanes AS a ON p.\`Tail Number\` = a.\`Tail Number\`
+GROUP BY
+  a.\`Tail Number\`, t.Class
+ORDER BY
+  a.\`Tail Number\`, t.Class;`; 
+  db.query(sqlGet, id, (error, result) => {
+    if (error) {
+      console.log(error);
+    }
+    res.send(result);
+  });
+});
 
 app.listen(3001, () => {
     console.log("Server is running on port 3001");

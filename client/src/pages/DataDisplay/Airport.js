@@ -1,45 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./Passenger.css";
+import "./Airport.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const Passenger = () => {
+const Airport = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:3001/api/get");
+    const response = await axios.get("http://localhost:3001/api/get2");
     setData(response.data);
   };
 
   useEffect(() => {
     loadData();
   }, []);
-  const deleteContact = (id) => {
+  const deleteAirport = (id) => {
     if (
-      window.confirm("Are you sure that you wanted to delete that contact ?")
+      window.confirm("Are you sure that you wanted to delete that airport ?")
     ) {
-      axios.delete(`http://localhost:3001/api/remove/${id}`);
-      toast.success("Passenger Record Deleted Successfully");
+      axios.delete(`http://localhost:3001/api/remove2/${id}`);
+      toast.success("Airport Record Deleted Successfully");
       setTimeout(() => loadData(), 500);
     }
   };
   return (
-    <div className="container2">
-        <h2 style={{ fontSize: "30px"}} className="heading">Passenger Details Page</h2>
+    <div className="container">
+        <h2 style={{ fontSize: "30px"}}className="heading">Airport Details Page</h2>
       <Link to="/addPassenger">
-        <button className="btn btn-contact">Add Passenger</button>
+        <button className="btn btn-contact">Add Airport</button>
       </Link>
       
       <table className="table styled-table">
         <thead>
           <tr>
             <th style={{ textAlign: "center" }}>No.</th>
-            <th style={{ textAlign: "center" }}>FirstName</th>
-            <th style={{ textAlign: "center" }}>Lastname</th>
-            <th style={{ textAlign: "center" }}>PhoneNo.</th>
-            <th style={{ textAlign: "center" }}>PassengerID</th>
-            <th style={{ textAlign: "center" }}>Miles</th>
+            <th style={{ textAlign: "center" }}>Airport ID</th>
+            <th style={{ textAlign: "center" }}>Airport Name</th>
+            <th style={{ textAlign: "center" }}>City</th>
+            <th style={{ textAlign: "center" }}>City Code</th>
+            <th style={{ textAlign: "center" }}>State or Country</th>
             <th style={{ textAlign: "center" }}>Action</th>
           </tr>
         </thead>
@@ -48,22 +48,22 @@ const [data, setData] = useState([]);
             return (
               <tr key={item.id}>
                 <th scope="row">{index + 1}</th>
-                <td>{item.FirstName}</td>
-                <td>{item.Lastname}</td>
-                <td>{item.PhoneNumber}</td>
-                <td>{item.PassengerId}</td>
-                <td>{item.Miles_on_Passenger}</td>
+                <td>{item.airportID}</td>
+                <td>{item.airportname}</td>
+                <td>{item.city}</td>
+                <td>{item.citycode}</td>
+                <td>{item.stateorcountry}</td>
                 <td>
-                  <Link to={`/update/${item.PassengerId}`}>
+                  <Link to={`/update2/${item.AirportID}`}>
                     <button className="btn btn-edit">Edit</button>
                   </Link>
                   <button
                     className="btn btn-delete"
-                    onClick={() => deleteContact(item.PassengerId)}
+                    onClick={() => deleteAirport(item.AirportId)}
                   >
                     Delete
                   </button>
-                  <Link to={`/view/${item.PassengerId}`}>
+                  <Link to={`/view2/${item.AirportID}`}>
                     <button className="btn btn-view">View</button>
                   </Link>
                 </td>
@@ -76,4 +76,4 @@ const [data, setData] = useState([]);
   )
 }
 
-export default Passenger;
+export default Airport;
