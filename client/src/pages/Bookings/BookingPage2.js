@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import axios from "axios";
@@ -43,6 +45,16 @@ const BookingPage2 = () => {
   };
 
   const handleSubmit = () => {
+    toast.success("Passenger Added Successfully!!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     axios
       .post("http://localhost:3001/api/post", {
         firstname: formData.firstName,

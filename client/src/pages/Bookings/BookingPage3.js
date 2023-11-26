@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
@@ -13,6 +15,9 @@ const BookingPage3 = () => {
     seatNumber: "",
     classType: "First",
     cost: "",
+    seatNumber: "",
+    classType: "First",
+    cost: "",
   });
   const [confirmation, setConfirmation] = useState(false);
 
@@ -22,6 +27,7 @@ const BookingPage3 = () => {
       [e.target.name]: e.target.value,
     });
   };
+
 
   const handleConfirmation = () => {
     setConfirmation(!confirmation);
@@ -43,7 +49,8 @@ const BookingPage3 = () => {
   
     // Format departureDate to "MM/DD/YYYY"
     const formattedDepartureDate = formData.departureDate.toLocaleDateString('en-US');
-  
+
+   
     // Fetch miles for the passenger with the max PassengerId
     axios.get("http://localhost:3001/api/getmaxmiles")
       .then((response) => {
@@ -84,6 +91,17 @@ const BookingPage3 = () => {
           .then((response) => {
             // Handle success, e.g., show a success message
             console.log("Booking successful!", response);
+            navigate("/");
+            toast.success("Ticket Added Successfully!!", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
           })
           .catch((error) => {
             // Handle error, e.g., show an error message
@@ -123,6 +141,9 @@ const BookingPage3 = () => {
             id="seatNumber"
             name="seatNumber"
             value={formData.seatNumber}
+            id="seatNumber"
+            name="seatNumber"
+            value={formData.seatNumber}
             onChange={handleChange}
             style={{ width: "200px" }} // Adjust the width as needed
           />
@@ -144,22 +165,10 @@ const BookingPage3 = () => {
         </select>
         </div>
 
-        <div style={{ marginBottom: "10px", display: "flex", flexDirection: "row", alignItems: "center" }}>
-          <label htmlFor="cost" style={{ display: "block", width: "120px", marginRight: "10px" }}>Cost:</label>
-          <input
-            type="text"
-            id="cost"
-            name="cost"
-            value={formData.cost}
-            onChange={handleChange}
-            style={{ width: "200px" }} // Adjust the width as needed
-          />
-        </div>
-
         {confirmation ? (
             <div style={{ marginTop: "20px", textAlign: "center" }}>
               <p style={{ marginBottom: "20px", fontSize: "18px" }}>Do you want to continue with this booking?</p>
-              <Link to="/BookingPage3">
+              <Link to="/">
                 <button type="submit" className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }}onClick={handleSubmit}>Are you sure?</button>
               </Link>
               <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleConfirmation}>Go Back</button>
