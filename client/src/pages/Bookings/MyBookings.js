@@ -141,6 +141,14 @@ const MyBookings = () => {
           </button>
         </div>
       )}
+      <div style={{ marginTop: "20px", textAlign: "center" }}>
+        
+      </div>
+      <Link to={`/Index`}>
+      <button className="btn btn-confirm" style={{ marginTop: "20px",marginRight:"20px", padding: "15px", fontSize: "18px" }}>
+          Weather Information
+      </button>
+      </Link>
     </div>
   );
 };

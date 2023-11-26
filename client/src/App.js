@@ -20,7 +20,8 @@ import Busiest from "./pages/InterestingQueries/BusiestAirport";
 import Distribution from "./pages/InterestingQueries/ClassDistribution";
 import TicketsSold from "./pages/InterestingQueries/TicketsSold";
 import Layout from "./components/Layout";
-
+import  Index from "../src/Weather/index"
+  
 function App() {
   return (
     <BrowserRouter>
@@ -44,6 +45,7 @@ function App() {
           <Route path="/busiest" element={<Layout><Busiest/></Layout>} />
           <Route path="/distribution" element={<Layout><Distribution/></Layout>} />
           <Route path="/ticketsSold" element={<Layout><TicketsSold/></Layout>} />
+          <Route path="/Index" element={<Layout><Index/></Layout>} />
         </Routes>
       </div>
     </BrowserRouter>
