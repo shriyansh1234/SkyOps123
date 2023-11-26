@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Axios from "axios";
 import CityComponent from "./modules/CityComponent";
@@ -59,24 +59,34 @@ const CloseButton = styled.span`
   position: absolute;
 `;
 
-function App() {
-  const [city, updateCity] = useState();
-  const [weather, updateWeather] = useState();
-  const fetchWeather = async (e) => {
-    e.preventDefault();
-    const response = await Axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=3d65e4e173646556b67e871b69e4d4a5`,
-    );
-    updateWeather(response.data);
+function App({ source, destination }) {
+  const [weatherSource, updateWeatherSource] = useState(null);
+  const [weatherDestination, updateWeatherDestination] = useState(null);
+
+  useEffect(() => {
+    // Fetch weather for source
+    fetchWeather(source, updateWeatherSource);
+
+    // Fetch weather for destination
+    fetchWeather(destination, updateWeatherDestination);
+  }, [source, destination]);
+
+  const fetchWeather = async (city, updateWeather) => {
+    try {
+      const response = await Axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=3d65e4e173646556b67e871b69e4d4a5`
+      );
+      updateWeather(response.data);
+    } catch (error) {
+      console.error("Error fetching weather:", error);
+    }
   };
+
   return (
     <Container>
-      <AppLabel>React Weather App</AppLabel>
-      {city && weather ? (
-        <WeatherComponent weather={weather} city={city} />
-      ) : (
-        <CityComponent updateCity={updateCity} fetchWeather={fetchWeather} />
-      )}
+      <AppLabel>Weather Information</AppLabel>
+      {weatherSource && <WeatherComponent weather={weatherSource} city={source} />}
+      {weatherDestination && <WeatherComponent weather={weatherDestination} city={destination} />}
     </Container>
   );
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,6 +24,12 @@ import Layout from "./components/Layout";
 import  Index from "../src/Weather/index"
   
 function App() {
+  const [weatherInfo, setWeatherInfo] = useState({ source: '', destination: '' });  // State to store weather information
+
+  const handleWeatherInfoChange = (source, destination) => {
+    setWeatherInfo({ source, destination });
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -45,7 +52,7 @@ function App() {
           <Route path="/busiest" element={<Layout><Busiest/></Layout>} />
           <Route path="/distribution" element={<Layout><Distribution/></Layout>} />
           <Route path="/ticketsSold" element={<Layout><TicketsSold/></Layout>} />
-          <Route path="/Index" element={<Layout><Index/></Layout>} />
+          <Route path="/Index/:source/:destination" element={<Layout><Index /></Layout>} />
         </Routes>
       </div>
     </BrowserRouter>

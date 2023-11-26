@@ -16,6 +16,13 @@ const MyBookings = () => {
   const handleTicketIdChange = (e) => {
     setTravelInfotId(e.target.value);
   };
+  
+  const handleWeatherInfo = () => {
+    if (ticketInfo) {
+      navigate(`/Index/${ticketInfo.Source}/${ticketInfo.Destination}`);
+    }
+  };
+  
   const handleupdate1 = () => {
     setupdate(!update);
   };
@@ -105,6 +112,13 @@ const MyBookings = () => {
             <p>Miles on Passenger: {ticketInfo.Miles_on_Passenger}</p>
             <p>Tail Number: {ticketInfo["Tail Number"]}</p>
           </div>
+
+          {/* Airplane Details Column */}
+          <div style={{ width: "45%"}}>
+            <h3 style={{ fontSize: "30px"}}>Airplane Details</h3>
+            <p>Source: {ticketInfo.Source}</p>
+            <p>Destination: {ticketInfo.Destination}</p>
+          </div>
         </div>
       )}
 
@@ -144,7 +158,13 @@ const MyBookings = () => {
       <div style={{ marginTop: "20px", textAlign: "center" }}>
         
       </div>
-      <Link to={`/Index`}>
+      <Link
+        to={
+          ticketInfo
+            ? `/Index/${ticketInfo.Source}/${ticketInfo.Destination}`
+            : '/Index'
+        }
+      >
       <button className="btn btn-confirm" style={{ marginTop: "20px",marginRight:"20px", padding: "15px", fontSize: "18px" }}>
           Weather Information
       </button>

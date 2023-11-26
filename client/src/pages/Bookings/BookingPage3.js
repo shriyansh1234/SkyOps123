@@ -141,9 +141,6 @@ const BookingPage3 = () => {
             id="seatNumber"
             name="seatNumber"
             value={formData.seatNumber}
-            id="seatNumber"
-            name="seatNumber"
-            value={formData.seatNumber}
             onChange={handleChange}
             style={{ width: "200px" }} // Adjust the width as needed
           />
