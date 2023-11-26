@@ -248,7 +248,7 @@ app.post("/api/post3", (req, res) => {
       const lastThreeDigits = parseInt(maxTicketId.substr(3), 10) + 1;
 
       // Ensure it is a 3-digit number
-      const newTicketId = lastThreeDigits.toString().padStart(3, '0');
+      const newTicketId = maxPassengerId.toString().padStart(3, '0');
 
       const ticketIDString = `TKT${newTicketId}`;
 

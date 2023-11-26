@@ -18,7 +18,7 @@ const [data, setData] = useState([]);
 
   return (
     <div className="container2">
-        <h2 style={{ fontSize: "30px"}} className="heading">Ticket Sold By Airlines Page</h2>
+        <h2 style={{ fontSize: "30px"}} className="heading">Traffic at Airports Page</h2>
       
       <table className="table styled-table">
         <thead>
