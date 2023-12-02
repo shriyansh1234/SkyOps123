@@ -3,14 +3,14 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "./View.css";
 
-const ViewTickets = () => {
+const ViewAirplanes = () => {
   const [user, setUser] = useState({});
 
   const { id } = useParams();
 
   useEffect(() => {
     axios 
-    .get(`http://localhost:5000/api/get3/${id}`)
+    .get(`http://localhost:3001/api/get1/${id}`)
     .then((resp) => {
       console.log("API Response:", resp.data);
       setUser(resp.data[0]);
@@ -21,43 +21,43 @@ const ViewTickets = () => {
     <div style={{ marginTop: "150px" }}>
       <div className="card">
         <div className="card-header">
-          <p>User Contact Detail</p>
+          <p>Airplane Detail</p>
         </div>
         <div className="container">
-          <strong>TicketID: </strong>
-          <span>{user.TicketID}</span>
+          <strong>Tail Number: </strong>
+          <span>{user['Tail Number']}</span>
           <br />
           <br />
           <strong>Arrival Time: </strong>
           <span>{user['Arrival Time']}</span>
           <br />
           <br />
-          <strong>Seat Number: </strong>
-          <span>{user['Seat Number']}</span>
+          <strong>Departure Time: </strong>
+          <span>{user['Departure Time']}</span>
           <br />
           <br />
-          <strong>Departure Date: </strong>
-          <span>{user['Departure_Date']}</span>
+          <strong>Source: </strong>
+          <span>{user.Source}</span>
           <br />
           <br />
-          <strong>Class: </strong>
-          <span>{user.Class}</span>
+          <strong>Destination: </strong>
+          <span>{user.Destination}</span>
           <br />
           <br />
-          <strong>Cancels: </strong>
-          <span>{user.Cancels}</span>
+          <strong>Duration: </strong>
+          <span>{user.Duration}</span>
           <br />
           <br />
-          <strong>BookingDate: </strong>
-          <span>{user.BookingDate}</span>
+          <strong>Airline: </strong>
+          <span>{user.Airline}</span>
           <br />
           <br />
-          <strong>Cancellation Fee: </strong>
-          <span>{user['Cancellation Fee']}</span>
+          <strong>TotalMiles: </strong>
+          <span>{user.TotalMiles}</span>
           <br />
           <br />
-          <strong>PassengerID: </strong>
-          <span>{user.PassengerID}</span>
+          <strong>AirportId: </strong>
+          <span>{user.AirportId}</span>
           <br />
           <br />
           <Link to="/">
@@ -69,4 +69,4 @@ const ViewTickets = () => {
   );
 };
 
-export default ViewTickets;
+export default ViewAirplanes;

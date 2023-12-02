@@ -10,7 +10,7 @@ const ViewPassengers = () => {
 
   useEffect(() => {
     axios 
-    .get(`http://localhost:5000/api/get/${id}`)
+    .get(`http://localhost:3001/api/get/${id}`)
     .then((resp) => {
       console.log("API Response:", resp.data);
       setUser(resp.data[0]);
@@ -21,7 +21,7 @@ const ViewPassengers = () => {
     <div style={{ marginTop: "150px" }}>
       <div className="card">
         <div className="card-header">
-          <p>User Contact Detail</p>
+          <p>Passenger Detail</p>
         </div>
         <div className="container">
           <strong>PassengerID: </strong>

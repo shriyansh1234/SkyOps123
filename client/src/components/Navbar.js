@@ -45,6 +45,20 @@ const Navbar = () => {
           icon: <MapIcon />,
         },
       ]
+
+      const DropdownMenu = () => (
+        <div className="dropdown-menu">
+          {menuOptions.map((item) => (
+            <a key={item.text} href={item.link}>
+              <div className="dropdown-item">
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </div>
+            </a>
+          ))}
+        </div>
+      );
+      
       return (
         <nav>
           <div className="nav-logo-container">
@@ -52,11 +66,14 @@ const Navbar = () => {
           </div>
           <div className="navbar-links-container">
             <a href="/">Home</a>
-            <a href="/ticket">My Bookings</a>
+            <a href="/MyBookings">My Bookings</a>
             <a href="/airplane">Airplanes</a>
             <a href="/passenger">Passengers</a>
-            <a href="">Destinations</a>
-            <a href="/BookingPage">
+            <a href="/destinations">Destinations</a>
+            <a href="/busiest">Traffic</a>
+            <a href="/ticketsSold">Tickets Sold</a>
+            <a href="/distribution">Class Distribution</a>
+            <a href="/BookingPage1">
               <button className="primary-button">Bookings Now</button>
             </a>
           </div>
