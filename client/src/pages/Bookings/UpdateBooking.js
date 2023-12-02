@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -38,9 +40,20 @@ const UpdateBooking = () => {
   const handleUpdate = () => {
     // Make API call to update the booking information
     const apiUrl = `http://localhost:3001/api/updatebooking/${id}`;
-
+    toast.success("Ticket updated successfully", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     axios.put(apiUrl, bookingInfo)
+    
       .then((response) => {
+        navigate("/");
         // Handle success, e.g., show a success message or navigate to another page
         console.log("Booking updated successfully", response);
         // navigate("/mybookings"); // Assuming you have a route for the MyBookings component

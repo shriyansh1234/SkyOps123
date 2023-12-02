@@ -57,6 +57,7 @@ const MyBookings = () => {
       .catch((error) => {
         console.error("Error deleting booking:", error);
       });
+      
   };
   const handleGoBack = () => {
     navigate(-1); // Go back one step in the history
@@ -121,7 +122,17 @@ const MyBookings = () => {
           </div>
         </div>
       )}
-
+      <Link
+        to={
+          ticketInfo
+            ? `/Index/${ticketInfo.PassengerId}/${ticketInfo.Source}/${ticketInfo.Destination}`
+            : '/Index'
+        }
+      >
+      <button className="btn btn-confirm" style={{ marginTop: "20px",marginRight:"20px", padding: "15px", fontSize: "18px", alignItems: 'center' }}>
+          Weather Information
+      </button>
+      </Link>
       {ticketInfo && cancellation && (
         <div style={{ marginTop: "20px", textAlign: "center",fontSize: "22px" }}>
           <p style={{ marginBottom: "20px" }}>Do you want to delete this booking? You might be charged a cancellation fee.</p>
@@ -134,7 +145,7 @@ const MyBookings = () => {
           <button className="btn btn-confirm" style={{ margin: "20px", padding: "15px", fontSize: "18px" }} onClick={handleCancellation}>Go Back</button>
         </div>
       )}
-      {ticketInfo && update && (
+      {ticketInfo && update &&  (
         <div style={{ marginTop: "20px", textAlign: "center" }}>
           <p style={{ marginBottom: "20px", fontSize: "18px" }}>Do you want to update this booking?</p>
           <Link to={`/UpdateBooking/${ticketInfo.TicketID}`}>
@@ -158,17 +169,7 @@ const MyBookings = () => {
       <div style={{ marginTop: "20px", textAlign: "center" }}>
         
       </div>
-      <Link
-        to={
-          ticketInfo
-            ? `/Index/${ticketInfo.Source}/${ticketInfo.Destination}`
-            : '/Index'
-        }
-      >
-      <button className="btn btn-confirm" style={{ marginTop: "20px",marginRight:"20px", padding: "15px", fontSize: "18px" }}>
-          Weather Information
-      </button>
-      </Link>
+      
     </div>
   );
 };

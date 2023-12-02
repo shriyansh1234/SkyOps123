@@ -21,7 +21,7 @@ const ViewAirplanes = () => {
     <div style={{ marginTop: "150px" }}>
       <div className="card">
         <div className="card-header">
-          <p>User Contact Detail</p>
+          <p>Airplane Detail</p>
         </div>
         <div className="container">
           <strong>Tail Number: </strong>

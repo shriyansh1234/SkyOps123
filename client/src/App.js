@@ -52,7 +52,7 @@ function App() {
           <Route path="/busiest" element={<Layout><Busiest/></Layout>} />
           <Route path="/distribution" element={<Layout><Distribution/></Layout>} />
           <Route path="/ticketsSold" element={<Layout><TicketsSold/></Layout>} />
-          <Route path="/Index/:source/:destination" element={<Layout><Index /></Layout>} />
+          <Route path="/Index/:id/:source/:destination" element={<Layout><Index/></Layout>} />
         </Routes>
       </div>
     </BrowserRouter>

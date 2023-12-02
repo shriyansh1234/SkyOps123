@@ -3,17 +3,20 @@ const app = express();
 const bodyParser = require("body-parser");
 const mysql = require("mysql2");
 const cors = require("cors");
+const { json } = require('express');
+const { createTransport } = require('nodemailer');
 
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "Alphacow_20",
+  password: "Yob1#ab1",
   database: "airlinedatabase1",
 });
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // ****  passengers function start **** 
 
@@ -356,8 +359,19 @@ app.get("/api/getdestination/:selectedDestination", (req, res) => {
 
 app.get("/api/getmyticket/:id", (req, res) => {
   const { id } = req.params;
-  const sqlGet = `SELECT t.Cost,t.TicketID,t.BookingDate, t.\`Cancellation Fee\`,t.Class, t.Departure_Date, t.\`Seat Number\`,p.PassengerId,p.FirstName,p.Lastname,p.PhoneNumber,p.PassengerId,p.Miles_on_Passenger,p.\`Tail Number\` 
-  FROM tickets as t JOIN passengers as p ON t.PassengerID = p.PassengerId WHERE t.TicketID = ?` ;
+  const sqlGet = `
+    SELECT
+      t.Cost, t.TicketID, t.BookingDate, t.\`Cancellation Fee\`, t.Class, t.Departure_Date, t.\`Seat Number\`,
+      p.PassengerId, p.FirstName, p.Lastname, p.PhoneNumber, p.PassengerId, p.Miles_on_Passenger, p.\`Tail Number\`,
+      a.Source, a.Destination  
+    FROM
+      tickets AS t
+    JOIN
+      passengers AS p ON t.PassengerID = p.PassengerId
+    JOIN
+      airplanes AS a ON p.\`Tail Number\` = a.\`Tail Number\`
+    WHERE
+      t.TicketID = ?`;
   db.query(sqlGet, id, (error, result) => {
     if (error) {
       console.log(error);
@@ -403,7 +417,7 @@ app.put("/api/updatebooking/:id", (req, res) => {
 
 //  **** my booking end ****
 
-//  **** Interesting Queries ****
+//  **** INTERESTING QUERIES ****
 
 //  **** Total Number of Tickets Sold by Airline: ****
 app.get("/api/ticketssold", (req, res) => {
@@ -424,7 +438,7 @@ app.get("/api/ticketssold", (req, res) => {
 
 
 //  **** Busiest Airports (Based on Departures): ****
-
+// coalesce- returns the first non null expression
 app.get("/api/busiestairports", (req, res) => {
   const { id } = req.params;
   const sqlGet = `WITH DepartureCounts AS (
@@ -438,7 +452,7 @@ app.get("/api/busiestairports", (req, res) => {
   )
   SELECT
     DepartureAirport,
-    COALESCE(SUM(dc.DepartureCount), 0) AS TotalDepartures
+    COALESCE(SUM(dc.DepartureCount), 0) AS TotalDepartures  
   FROM
     DepartureCounts AS dc
   GROUP BY
@@ -452,6 +466,7 @@ app.get("/api/busiestairports", (req, res) => {
     res.send(result);
   });
 });
+
 //  **** Passenger Distribution by Class: ****
 
 app.get("/api/passengerdistribution", (req, res) => {
@@ -507,6 +522,36 @@ app.get("/api/getmaxmiles", (req, res) => {
     const maxMiles = result[0].MaxMiles;
 
     return res.status(200).json({ maxMiles });
+  });
+});
+
+
+const smtpTransport = createTransport({
+  service: 'gmail', // e.g., 'gmail'
+  auth: {
+    user: "skyops111@gmail.com",
+    pass: "kcdf nrqx jpxy nwor",
+  },
+});
+
+app.post('/send-email', (req, res) => {
+  const { to, subject, text } = req.body;
+  console.log('Received email request:', req.body);
+  const mailOptions = {
+    from: 'skyops111@gmail.com',
+    to: 'shriyanshtripathi10@gmail.com',
+    subject: "Flight Cancelled!",
+    text: "This is a message from SkyOps!! This is to alert you that due to bad weather at your travel source or destination. Your flight has been canceled! Your money should be refunded back to your account! Use SkyOps to make a new booking. Thank You, we apologize for the inconvenience" ,
+  };
+
+  smtpTransport.sendMail(mailOptions, (error) => {
+    if (error) {
+      console.error('Error sending email2:', error);
+      res.status(500).send('Error sending email3');
+    } else {
+      console.log('Email sent successfully');
+      res.status(200).send('Email sent successfully');
+    }
   });
 });
 
