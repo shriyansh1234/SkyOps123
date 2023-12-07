@@ -8,7 +8,7 @@ const ClassDistribution = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:3001/api/passengerdistribution");
+    const response = await axios.get("https://localhost:3001/api/passengerdistribution");
     setData(response.data);
   };
 

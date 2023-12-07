@@ -8,7 +8,7 @@ const Destinations = () => {
 
   useEffect(() => {
     // Fetch destinations when the component mounts
-    axios.get("http://localhost:3001/api/getdestination")
+    axios.get("https://localhost:3001/api/getdestination")
       .then(response => {
         console.log(response.data); // Log the response data to the console
         setDestinations(response.data);

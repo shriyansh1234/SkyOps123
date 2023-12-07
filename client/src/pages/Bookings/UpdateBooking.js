@@ -21,7 +21,7 @@ const UpdateBooking = () => {
 
   useEffect(() => {
     // Fetch the current booking information based on the ID
-    const apiUrl = `http://localhost:3001/api/getmyticket/${id}`;
+    const apiUrl = `httpss://localhost:3001/api/getmyticket/${id}`;
 
     axios.get(apiUrl)
       .then((response) => {
@@ -39,7 +39,7 @@ const UpdateBooking = () => {
 
   const handleUpdate = () => {
     // Make API call to update the booking information
-    const apiUrl = `http://localhost:3001/api/updatebooking/${id}`;
+    const apiUrl = `https://localhost:3001/api/updatebooking/${id}`;
     toast.success("Ticket updated successfully", {
       position: "top-center",
       autoClose: 3000,
