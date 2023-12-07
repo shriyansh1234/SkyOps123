@@ -73,7 +73,7 @@ const navigate = useNavigate();
     const passengerIdToDelete=  id;
 
     // Make API call to delete the booking
-    const apiUrl = `http://localhost:3001/api/deletebooking/${passengerIdToDelete}`;
+    const apiUrl = `https://localhost:3001/api/deletebooking/${passengerIdToDelete}`;
 
     try {
       await Axios.delete(apiUrl);
@@ -122,7 +122,7 @@ const navigate = useNavigate();
     };
 
     try {
-      await Axios.post('http://localhost:3001/send-email', emailData);
+      await Axios.post('https://localhost:3001/send-email', emailData);
       navigate("/");
       console.log('Email sent successfully');
       toast.success("Ticket deleted successfully", {

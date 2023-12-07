@@ -10,7 +10,7 @@ const ViewTickets = () => {
 
   useEffect(() => {
     axios 
-    .get(`http://localhost:3001/api/get3/${id}`)
+    .get(`https://localhost:3001/api/get3/${id}`)
     .then((resp) => {
       console.log("API Response:", resp.data);
       setUser(resp.data[0]);

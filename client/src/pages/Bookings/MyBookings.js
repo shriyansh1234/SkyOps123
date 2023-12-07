@@ -36,7 +36,7 @@ const MyBookings = () => {
   };
   const handleDelete = () => {
     const passengerId = ticketInfo.PassengerId;
-    const apiUrl = `http://localhost:3001/api/deletebooking/${passengerId}`;
+    const apiUrl = `https://localhost:3001/api/deletebooking/${passengerId}`;
 
     toast.success("Ticket deleted successfully", {
       position: "top-center",
@@ -64,7 +64,7 @@ const MyBookings = () => {
   };
 
   const handleRetrieveInfo = () => {
-    const apiUrl = `http://localhost:3001/api/getmyticket/${ticketId}`;
+    const apiUrl = `https://localhost:3001/api/getmyticket/${ticketId}`;
 
     axios.get(apiUrl)
       .then((response) => {

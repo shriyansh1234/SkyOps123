@@ -52,7 +52,7 @@ const BookingPage3 = () => {
 
    
     // Fetch miles for the passenger with the max PassengerId
-    axios.get("http://localhost:3001/api/getmaxmiles")
+    axios.get("https://localhost:3001/api/getmaxmiles")
       .then((response) => {
         const miles = response.data.maxMiles || 0; // If there are no passengers, start from 0
   
@@ -87,7 +87,7 @@ const BookingPage3 = () => {
   
         // Your logic to submit the form data and ticketData to the server
         // For example, you can use axios.post to make a POST request
-        axios.post("http://localhost:3001/api/post3", ticketData)
+        axios.post("https://localhost:3001/api/post3", ticketData)
           .then((response) => {
             // Handle success, e.g., show a success message
             console.log("Booking successful!", response);
