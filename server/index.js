@@ -5,6 +5,9 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const { json } = require('express');
 const { createTransport } = require('nodemailer');
+
+
+const Socketapp = express();
 const Server  = require("socket.io").Server
 const http  = require('http')
 const path  = require('path')
@@ -22,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // **** socket add ****
 
-const server  = http.createServer(app)
+const server  = http.createServer(Socketapp)
 const io = new Server(server , {
     cors:{
         origin:"http://localhost:3000"
@@ -33,9 +36,9 @@ const io = new Server(server , {
 const _dirname = path.dirname("")
 const buildPath = path.join(_dirname  , "../client/build");
 
-app.use(express.static(buildPath))
+Socketapp.use(express.static(buildPath))
 
-app.get("/3000", function(req, res){
+Socketapp.get("/*", function(req, res){
 
     res.sendFile(
         path.join(__dirname, "../client/build/index.html"),
@@ -596,6 +599,10 @@ app.post('/send-email', (req, res) => {
       res.status(200).send('Email sent successfully');
     }
   });
+});
+
+Socketapp.listen(3002, () => {
+  console.log("Server is running on port 3002");
 });
 
 app.listen(3001, () => {
