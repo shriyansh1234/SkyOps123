@@ -13,8 +13,8 @@ const http  = require('http')
 const path  = require('path')
 
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
+  host: "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
+  user: "admin",
   password: "Yob1#ab1",
   database: "airlinedatabase1",
 });
