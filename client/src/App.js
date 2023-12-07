@@ -7,6 +7,7 @@ import ViewPassengers from "./pages/ViewPages/ViewPassengers";
 import ViewAirplanes from "./pages/ViewPages/ViewAirplanes";
 import ViewTickets from "./pages/ViewPages/ViewTickets";
 import Home from "./components/Home"
+import Chatbox from "./components/chatbox"
 import Passenger from "./pages//DataDisplay/Passenger";
 import Airplane from "./pages//DataDisplay/Airplanes"
 import Airport from "./pages/DataDisplay/Airport"
@@ -22,7 +23,8 @@ import Distribution from "./pages/InterestingQueries/ClassDistribution";
 import TicketsSold from "./pages/InterestingQueries/TicketsSold";
 import Layout from "./components/Layout";
 import  Index from "../src/Weather/index"
-  
+
+
 function App() {
   const [weatherInfo, setWeatherInfo] = useState({ source: '', destination: '' });  // State to store weather information
 
@@ -33,6 +35,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <Chatbox />
         <ToastContainer position="top-center" />
         <Routes> 
         <Route path="/" element={<Home/>} />
