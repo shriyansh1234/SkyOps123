@@ -379,6 +379,7 @@ app.put("/api/update3/:id", (req, res) => {
 app.get("/api/getdestination", (req, res) => {
   const { id } = req.params;
   const sqlGet = "SELECT DISTINCT Destination as `List of Destinations` FROM airplanes ";
+  console.log("Destination retrival successful");
   db.query(sqlGet, id, (error, result) => {
     if (error) {
       console.log(error);
