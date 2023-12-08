@@ -5,8 +5,7 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const { json } = require('express');
 const { createTransport } = require('nodemailer');
-
-app.use(cors({ origin: true , credentials :  true}));
+app.use(cors())
 const Socketapp = express();
 const Server  = require("socket.io").Server
 const http  = require('http')
