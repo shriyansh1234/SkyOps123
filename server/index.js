@@ -12,35 +12,30 @@ const http  = require('http')
 const path  = require('path')
 
 const corsOption = {
-  origin: ['http://localhost:3001'],
+  origin: "*",
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "UPDATE"],
 }
 app.use(cors(corsOption));
 
 
+const db = mysql.createConnection({
+  host: "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
+  user: "admin",
+  password: "Yob1#ab1",
+  database: "airlinedatabase1",
+  port: "3306",
+});
+db.connect();
+
 // const db = mysql.createPool({
-//   host: "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
-//   user: "admin",
-//   password: "Yob1#ab1",
-//   database: "airlinedatabase1",
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_NAME,
 // });
 
-const db = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
 
-connection.connect(function(err) {
-  if (err) {
-    console.error('Database connection failed: ' + err.stack);
-    return;
-  }
-
-  console.log('Connected to database.');
-});
 
 
 app.use(cors());
@@ -634,4 +629,4 @@ app.listen(3001, () => {
     console.log("Server is running on port 3001");
   });
 
-  connection.end();
+ 
