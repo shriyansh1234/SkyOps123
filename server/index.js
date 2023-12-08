@@ -19,21 +19,22 @@ const corsOption = {
 app.use(cors(corsOption));
 // :EwWQY+8OmFm,upNbvfBWHVeSio5IfMWFhsMWli5HXn6IwO4adGDcg25
 
-const db = mysql.createConnection({
-  host: "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
-  user: "admin",
-  password: "Yob1#ab1",
-  database: "airlinedatabase1",
-  port: "3306",
-});
-db.connect();
-
-// const db = mysql.createPool({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
+// const db = mysql.createConnection({
+//   host: "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
+//   user: "admin",
+//   password: "Yob1#ab1",
+//   database: "airlinedatabase1",
+//   port: "3306",
 // });
+// db.connect();
+
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
+db.connect()
 
 
 
