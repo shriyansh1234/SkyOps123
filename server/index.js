@@ -19,10 +19,10 @@ const path  = require('path')
 //   database: "airlinedatabase1",
 // });
 const db = mysql.createPool({
-  host: process_env.DB_HOST,
-  user: process_env.DB_USER,
-  password: process_env.DB_PASSWORD,
-  database: process_env.DB_NAME,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 app.use(cors());
 app.use(express.json());
