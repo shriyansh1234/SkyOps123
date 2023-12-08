@@ -17,11 +17,11 @@ const corsOption = {
   methods: ["GET", "POST", "PUT", "DELETE", "UPDATE"],
 }
 app.use(cors(corsOption));
-
+// :EwWQY+8OmFm,upNbvfBWHVeSio5IfMWFhsMWli5HXn6IwO4adGDcg25
 
 const db = mysql.createConnection({
-  host: "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
-  user: "admin",
+  host: "localhost",
+  user: "root",
   password: "Yob1#ab1",
   database: "airlinedatabase1",
   port: "3306",
