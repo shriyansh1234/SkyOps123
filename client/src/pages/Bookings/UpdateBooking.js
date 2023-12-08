@@ -39,7 +39,7 @@ const UpdateBooking = () => {
 
   const handleUpdate = () => {
     // Make API call to update the booking information
-    const apiUrl = `https://localhost:3001/api/updatebooking/${id}`;
+    const apiUrl = `http://localhost:3001/api/updatebooking/${id}`;
     toast.success("Ticket updated successfully", {
       position: "top-center",
       autoClose: 3000,

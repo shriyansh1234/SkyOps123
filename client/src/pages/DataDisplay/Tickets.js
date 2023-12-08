@@ -8,7 +8,7 @@ const Tickets = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("https://localhost:3001/api/get3");
+    const response = await axios.get("http://localhost:3001/api/get3");
     setData(response.data);
   };
 
@@ -19,7 +19,7 @@ const [data, setData] = useState([]);
     if (
       window.confirm("Are you sure that you wanted to delete that ticket ?")
     ) {
-      axios.delete(`https://localhost:3001/api/remove3/${id}`);
+      axios.delete(`http://localhost:3001/api/remove3/${id}`);
       toast.success("Ticket Record Deleted Successfully");
       setTimeout(() => loadData(), 500);
     }

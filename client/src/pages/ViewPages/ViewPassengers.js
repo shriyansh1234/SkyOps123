@@ -10,7 +10,7 @@ const ViewPassengers = () => {
 
   useEffect(() => {
     axios 
-    .get(`https://localhost:3001/api/get/${id}`)
+    .get(`http://localhost:3001/api/get/${id}`)
     .then((resp) => {
       console.log("API Response:", resp.data);
       setUser(resp.data[0]);

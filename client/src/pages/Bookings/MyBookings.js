@@ -64,7 +64,7 @@ const MyBookings = () => {
   };
 
   const handleRetrieveInfo = () => {
-    const apiUrl = `https://localhost:3001/api/getmyticket/${ticketId}`;
+    const apiUrl = `http://localhost:3001/api/getmyticket/${ticketId}`;
 
     axios.get(apiUrl)
       .then((response) => {

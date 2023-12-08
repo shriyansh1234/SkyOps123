@@ -122,7 +122,7 @@ const navigate = useNavigate();
     };
 
     try {
-      await Axios.post('https://localhost:3001/send-email', emailData);
+      await Axios.post('http://localhost:3001/send-email', emailData);
       navigate("/");
       console.log('Email sent successfully');
       toast.success("Ticket deleted successfully", {
