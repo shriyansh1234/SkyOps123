@@ -18,12 +18,24 @@ const path  = require('path')
 //   password: "Yob1#ab1",
 //   database: "airlinedatabase1",
 // });
+
 const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('Database connection failed: ' + err.stack);
+    return;
+  }
+
+  console.log('Connected to database.');
+});
+
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -614,3 +626,5 @@ Socketapp.listen(3002, () => {
 app.listen(3001, () => {
     console.log("Server is running on port 3001");
   });
+
+  connection.end();
