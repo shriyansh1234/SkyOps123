@@ -5,11 +5,19 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const { json } = require('express');
 const { createTransport } = require('nodemailer');
-app.use(cors())
+
 const Socketapp = express();
 const Server  = require("socket.io").Server
 const http  = require('http')
 const path  = require('path')
+
+const corsOption = {
+  origin: ['http://localhost:3001'],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}
+app.use(cors(corsOption));
+
 
 // const db = mysql.createPool({
 //   host: "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
