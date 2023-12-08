@@ -12,13 +12,18 @@ const Server  = require("socket.io").Server
 const http  = require('http')
 const path  = require('path')
 
+// const db = mysql.createPool({
+//   host: "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
+//   user: "admin",
+//   password: "Yob1#ab1",
+//   database: "airlinedatabase1",
+// });
 const db = mysql.createPool({
-  host: "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
-  user: "admin",
-  password: "Yob1#ab1",
-  database: "airlinedatabase1",
+  host: process_env.DB_HOST,
+  user: process_env.DB_USER,
+  password: process_env.DB_PASSWORD,
+  database: process_env.DB_NAME,
 });
-
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
