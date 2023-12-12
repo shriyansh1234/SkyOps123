@@ -12,16 +12,15 @@ const http  = require('http')
 const path  = require('path')
 
 const corsOption = {
-  origin: "https://localhost:3001",
+  origin: "*",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "UPDATE"],
 }
 app.use(cors(corsOption));
 
-
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || "airlinedatabase1.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
-  user: process.env.DB_USER || "admin",
+  host: process.env.DB_HOST || "airlinedatabase11.cjahg01vj5ou.us-east-2.rds.amazonaws.com",
+  user: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "Yob1#ab1",
   database: process.env.DB_NAME || "airlinedatabase1",
   port: process.env.DB_PORT || "3306",
@@ -29,10 +28,10 @@ const db = mysql.createConnection({
 db.connect();
 
 // const db = mysql.createConnection({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
+//   host: "localhost",
+//   user: "root",
+//   password: "Yob1#ab1",
+//   database: "airlinedatabase1",
 // });
 // db.connect()
 
