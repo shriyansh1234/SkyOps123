@@ -8,7 +8,7 @@ const Destinations = () => {
 
   useEffect(() => {
     // Fetch destinations when the component mounts
-    axios.get("/api/getdestination")
+    axios.get("https://ec2-3-15-21-250.us-east-2.compute.amazonaws.com/api/getdestination")
       .then(response => {
         console.log(response.data); // Log the response data to the console
         setDestinations(response.data);
