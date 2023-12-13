@@ -8,7 +8,7 @@ const BusiestAirports = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:3001/api/busiestairports");
+    const response = await axios.get("/api/busiestairports");
     setData(response.data);
   };
 

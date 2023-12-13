@@ -19,7 +19,7 @@ const [data, setData] = useState([]);
     if (
       window.confirm("Are you sure that you wanted to delete that ticket ?")
     ) {
-      axios.delete(`http://localhost:3001/api/remove3/${id}`);
+      axios.delete(`/api/remove3/${id}`);
       toast.success("Ticket Record Deleted Successfully");
       setTimeout(() => loadData(), 500);
     }

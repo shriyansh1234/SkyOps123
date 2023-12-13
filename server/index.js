@@ -625,7 +625,7 @@ Socketapp.listen(3002, () => {
   console.log("Server is running on port 3002");
 });
 
-app.listen(3001, () => {
+app.listen(3001,'0.0.0.0', () => {
     console.log("Server is running on port 3001");
   });
 

@@ -56,7 +56,7 @@ const BookingPage2 = () => {
       theme: "light",
     });
     axios
-      .post("http://localhost:3001/api/post", {
+      .post("/api/post", {
         firstname: formData.firstName,
         lastname: formData.lastName,
         phoneno: formData.phone,
