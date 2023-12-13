@@ -19,7 +19,7 @@ const [data, setData] = useState([]);
     if (
       window.confirm("Are you sure that you wanted to delete that airplane ?")
     ) {
-      axios.delete(`http://localhost:3001/api/remove1/${id}`);
+      axios.delete(`/api/remove1/${id}`);
       toast.success("Airplane Record Deleted Successfully");
       setTimeout(() => loadData(), 500);
     }

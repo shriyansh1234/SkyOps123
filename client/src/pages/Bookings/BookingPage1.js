@@ -14,7 +14,7 @@ const BookingPage1 = () => {
 
   useEffect(() => {
     // Fetch destinations when the component mounts
-    axios.get("http://localhost:3001/api/getdestination")
+    axios.get("/api/getdestination")
       .then(response => {
         setDestinations(response.data);
       })
@@ -26,7 +26,7 @@ const BookingPage1 = () => {
   useEffect(() => {
     // Fetch detailed information when the selected destination changes
     if (selectedDestination) {
-      axios.get(`http://localhost:3001/api/getdestination/${selectedDestination}`)
+      axios.get(`/api/getdestination/${selectedDestination}`)
         .then(response => {
           setDestinationDetails(response.data);
           

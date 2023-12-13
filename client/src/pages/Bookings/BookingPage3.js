@@ -87,7 +87,7 @@ const BookingPage3 = () => {
   
         // Your logic to submit the form data and ticketData to the server
         // For example, you can use axios.post to make a POST request
-        axios.post("http://localhost:3001/api/post3", ticketData)
+        axios.post("/api/post3", ticketData)
           .then((response) => {
             // Handle success, e.g., show a success message
             console.log("Booking successful!", response);

@@ -8,7 +8,7 @@ const Passenger = () => {
 const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:3001/api/get");
+    const response = await axios.get("/api/get");
     setData(response.data);
   };
 
