@@ -625,8 +625,8 @@ Socketapp.listen(3002, () => {
   console.log("Server is running on port 3002");
 });
 
-app.listen('https://ec2-3-15-21-250.us-east-2.compute.amazonaws.com','0.0.0.0', () => {
-    console.log("Server is running on port 3001");
+app.listen('443','0.0.0.0', () => {
+    console.log("Server is running on port xxx");
   });
 
  
