@@ -13,7 +13,7 @@ The core problem we aim to address is the disruptive impact of unpredictable wea
 ## Key Functionalities
 
 - **User-Friendly Website**: Passengers can seamlessly book, update, or cancel their flights.
-![Add a Passenger](https://github.com/shriyansh1234/SkyOps123/blob/main/client/src/Assets/openweatherapi.gif)
+![Add a Passenger](https://github.com/shriyansh1234/SkyOps123/blob/main/client/src/Assets/addpassenger.gif)
 - **Weather API Integration**: Fetches real-time weather data to inform passengers about weather conditions at both the source and destination airports.
 ![OpenWeather API](https://github.com/shriyansh1234/SkyOps123/blob/main/client/src/Assets/openweatherapi.gif)
 - **Proactive Alerts**: Enhances the travel experience by providing up-to-the-minute information and allowing passengers to make informed decisions.
